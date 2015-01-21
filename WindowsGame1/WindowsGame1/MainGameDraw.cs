@@ -30,6 +30,8 @@ namespace WindowsGame1
         public void Update(GameTime gameTime)
         {
             _gameTime = gameTime;
+            Camera.Update(gameTime);
+
             _keyControl.UpdateInput();
 
             foreach (Button b in _buttonsTextures)
@@ -40,8 +42,6 @@ namespace WindowsGame1
             {
                 b.Update();
             }
-
-            Camera.Update(gameTime);
         }
 
         public void FillBox(Box target, EBoxGround targetColor, EBoxGround Color)
