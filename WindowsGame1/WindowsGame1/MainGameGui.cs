@@ -10,15 +10,34 @@ namespace WindowsGame1
     public partial class MainGame
     {
         List<Button> _allButtons = new List<Button>();
-        public void CreateTextureButton(Point Location, string Text, EBoxGround TextureToSelect)
+        public void CreateTextureButton(string Text, EBoxGround TextureToSelect)
         {
-            Button button = new Button(this, _gameTexture.GetTexture(TextureToSelect), _content.Load<SpriteFont>("Impact"), _spriteBatch, Text, Location, TextureToSelect);
+            int maxYpos = 0;
+            foreach (Button b in _allButtons)
+            {
+                if (b.Area.Y > maxYpos)
+                {
+                    maxYpos = b.Area.Y;
+                }
+            }
+
+            Point newPos = new Point(GameVariables.ButtonMarginLeft, maxYpos + GameVariables.ButtonMarginTop + GameVariables.ButtonHeight);
+            Button button = new Button(this, _gameTexture.GetTexture(TextureToSelect), _content.Load<SpriteFont>("Impact"), _spriteBatch, Text, newPos, TextureToSelect);
             _buttonsTextures.Add(button);
             _allButtons.Add(button);
         }
-        public void CreateActionButton(Point Location, string Text, EBoxGround ButtonTexture, EButtonAction ActionToDo)
+        public void CreateActionButton(string Text, EBoxGround ButtonTexture, EButtonAction ActionToDo)
         {
-            Button button = new Button(this, _gameTexture.GetTexture(ButtonTexture), _content.Load<SpriteFont>("Impact"), _spriteBatch, Text, Location, ActionToDo);
+            int maxYpos = 0;
+            foreach (Button b in _allButtons)
+            {
+                if (b.Area.Y > maxYpos)
+                {
+                    maxYpos = b.Area.Y;
+                }
+            }
+            Point newPos = new Point(GameVariables.ButtonMarginLeft, maxYpos + GameVariables.ButtonMarginTop + GameVariables.ButtonHeight);
+            Button button = new Button(this, _gameTexture.GetTexture(ButtonTexture), _content.Load<SpriteFont>("Impact"), _spriteBatch, Text, newPos, ActionToDo);
             _buttonsActions.Add(button);
             _allButtons.Add(button);
         }

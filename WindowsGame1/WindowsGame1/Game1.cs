@@ -19,7 +19,6 @@ namespace WindowsGame1
         protected GraphicsDeviceManager graphics;
         protected SpriteBatch spriteBatch;
         protected MainGame _game;
-        Camera _camera;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,8 +53,7 @@ namespace WindowsGame1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new MainGame(50,50, this.Content, spriteBatch);
-            _camera = new Camera(_game, spriteBatch, GraphicsDevice);
+            _game = new MainGame(50,50, this.Content, spriteBatch, GraphicsDevice);           
             _game.LoadContent();
             // TODO: use this.Content to load your game content here
         }
@@ -92,8 +90,7 @@ namespace WindowsGame1
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            Vector2 coor = new Vector2(10, 20);           
+            // TODO: Add your drawing code here   
             base.Draw(gameTime);
             spriteBatch.Begin();
             _game.Draw(GraphicsDevice,spriteBatch, gameTime);

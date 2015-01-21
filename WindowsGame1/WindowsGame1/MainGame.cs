@@ -23,20 +23,24 @@ namespace WindowsGame1
         SpriteBatch _spriteBatch;
         EBoxGround _selectedTexture = EBoxGround.Grass;
         EButtonAction _buttonAction;
-        public MainGame(int boxCountPerLine, int boxSizeInMeter, ContentManager Content, SpriteBatch SpriteBatch)
+        GraphicsDevice _graphics;
+        public MainGame(int boxCountPerLine, int boxSizeInMeter, ContentManager Content, SpriteBatch SpriteBatch, GraphicsDevice Graphics)
         {
+            _graphics = Graphics;
             _content = Content;
             _spriteBatch = SpriteBatch;
             _keyControl = new KeyControl(this);
             _gameTexture = new GameTexture(this, _content);
             _buttonsTextures = new List<Button>();
             _buttonsActions = new List<Button>();
-            this.CreateTextureButton(new Point(10, 50), "Snow", EBoxGround.Snow);
-            this.CreateTextureButton(new Point(10, 150), "Grass", EBoxGround.Grass);
-            this.CreateTextureButton(new Point(10, 250), "Dirt", EBoxGround.Dirt);
+            _camera = new Camera(this, _spriteBatch, _graphics);
+            this.CreateTextureButton("Snow", EBoxGround.Snow);
+            this.CreateTextureButton("Grass", EBoxGround.Grass);
+            this.CreateTextureButton("Dirt", EBoxGround.Dirt);
 
-            this.CreateActionButton(new Point(10, 350), "Change", EBoxGround.Snow, EButtonAction.ChangeTexture);
-            this.CreateActionButton(new Point(10, 450), "Fill", EBoxGround.Snow, EButtonAction.FillTexture);
+            this.CreateActionButton("Change", EBoxGround.Snow, EButtonAction.ChangeTexture);
+            this.CreateActionButton("Fill", EBoxGround.Snow, EButtonAction.FillTexture);
+
 
             this._boxCountPerLine = boxCountPerLine;
             this._boxes = new Box[boxCountPerLine * boxCountPerLine];

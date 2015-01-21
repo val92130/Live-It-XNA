@@ -34,8 +34,10 @@ namespace WindowsGame1
             _line = (int)Position.X;
             _column = (int)Position.Y;
             _position = new Point(this._line * this._game.BoxSize, this._column * this._game.BoxSize);
-            _ground = EBoxGround.Dirt;
+            _ground = GameVariables.DefaultBoxTexture;
         }
+
+        #region Position and Neighbors
         public Box Top
         {
             get
@@ -105,6 +107,15 @@ namespace WindowsGame1
                 _relativeSize = value;
             }
         }
+        public Rectangle RelativeArea
+        {
+            get
+            {
+                return new Rectangle(this.RelativePosition.X, this.RelativePosition.Y, this.RelativeSize.Width, this.RelativeSize.Height);
+            }
+        }
+
+        #endregion
 
         public EBoxGround Ground
         {
@@ -118,13 +129,6 @@ namespace WindowsGame1
             }
         }
 
-        public Rectangle RelativeArea
-        {
-            get
-            {
-                return new Rectangle(this.RelativePosition.X, this.RelativePosition.Y, this.RelativeSize.Width, this.RelativeSize.Height);
-            }
-        }
 
         internal void Draw(GraphicsDevice Graphics, SpriteBatch spriteBatch,Rectangle target, Rectangle viewPort, GameTime gameTime)
         {

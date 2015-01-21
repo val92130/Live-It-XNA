@@ -21,7 +21,7 @@ namespace WindowsGame1
         EBoxGround _textureToSelect;
         EButtonAction _actionToDo = EButtonAction.None;
         bool clicked = false;
-        string clickText = "Clicked!";
+
         MainGame _game;
         public Button(MainGame Game, Texture2D texture, SpriteFont font, SpriteBatch sBatch, string Text, Point Location, EBoxGround TextureToSelect)
         {
@@ -29,7 +29,7 @@ namespace WindowsGame1
             _textureToSelect = TextureToSelect;
             image = texture;
             this.font = font;
-            location = new Rectangle(Location.X, Location.Y, 100, 50);
+            location = new Rectangle(Location.X, Location.Y, 100, GameVariables.ButtonHeight);
             spriteBatch = sBatch;
             this.Text = Text;
         }

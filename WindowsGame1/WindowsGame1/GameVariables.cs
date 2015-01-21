@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,20 @@ namespace WindowsGame1
             get
             {
                 return 400;
+            }
+        }
+        public static int DefaultViewPortSize
+        {
+            get
+            {
+                return 500;
+            }
+        }
+        public static Point DefaultViewPortPosition
+        {
+            get
+            {
+                return new Point(0,0);
             }
         }
         #endregion
@@ -64,6 +79,43 @@ namespace WindowsGame1
         }
 
 
+
+        #endregion
+
+        #region Box
+
+        public static EBoxGround DefaultBoxTexture
+        {
+            get
+            {
+                return EBoxGround.Grass;
+            }
+        }
+
+        #endregion
+
+        #region GUI
+        public static int ButtonHeight
+        {
+            get
+            {
+                return 50;
+            }
+        }
+        public static int ButtonMarginLeft
+        {
+            get
+            {
+                return 10;
+            }
+        }
+        public static int ButtonMarginTop
+        {
+            get
+            {
+                return 100;
+            }
+        }
 
         #endregion
     }

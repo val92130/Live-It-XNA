@@ -22,11 +22,10 @@ namespace WindowsGame1
         {       
             _game = Game;
             _graphics = Graphics;
-            _game.Camera = this;
             _spriteBatch = spriteBatch;
             _boxList = new List<Box>();
             _screen = new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
-            this._viewPort = new Rectangle(0, 0, 5000, 5000);
+            this._viewPort = new Rectangle(GameVariables.DefaultViewPortPosition.X, GameVariables.DefaultViewPortPosition.Y, GameVariables.DefaultViewPortSize, GameVariables.DefaultViewPortSize);
         }
         public void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -38,9 +37,7 @@ namespace WindowsGame1
 
         public void Update(GameTime gameTime)
         {
-            _boxList = _game.GetOverlappedBoxes(_viewPort);
-            //this._viewPort.Width += (int)(500 * gameTime.ElapsedGameTime.TotalSeconds);
-            //this._viewPort.Height += (int)(500 * gameTime.ElapsedGameTime.TotalSeconds);          
+            _boxList = _game.GetOverlappedBoxes(_viewPort);     
         }
 
         public List<Box> BoxList
