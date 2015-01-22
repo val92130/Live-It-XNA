@@ -27,7 +27,7 @@ namespace WindowsGame1.Animals
             this.Texture = EAnimalTexture.Dog;
             this.Size = new Rectangle(0,0,150, 150);
             this.FavoriteEnvironnment = EBoxGround.Forest;
-            this.Speed = 4000000;
+            this.Speed = 2000000;
             this.DefaultSpeed = this.Speed;
             this.ViewDistance = 400;
             _spriteSheet = Game.Content.Load<Texture2D>("Animals/Animations/Dog-SpriteSheet");

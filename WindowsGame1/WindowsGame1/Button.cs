@@ -123,24 +123,29 @@ namespace WindowsGame1
 
         public void Draw()
         {
+            spriteBatch.Draw(image,
+            new Rectangle(location.X - GameVariables.ButtonBorderWidth / 2, location.Y - GameVariables.ButtonBorderWidth / 2, location.Width + GameVariables.ButtonBorderWidth, location.Height + GameVariables.ButtonBorderWidth),
+            GameVariables.BorderColor);
 
             if (location.Contains(new Point(mouse.X, mouse.Y)))
             {
                 spriteBatch.Draw(image,
                     location,
-                    Color.Silver);
+                    GameVariables.ButtonHoverColor);
             }
             else if(!_active)
             {
+
                 spriteBatch.Draw(image,
                     location,
                     Color.White);
+
             }
             else if (_active)
             {
                 spriteBatch.Draw(image,
                     location,
-                    Color.Red);
+                    GameVariables.ButtonActiveColor);
             }
 
             spriteBatch.DrawString(font,

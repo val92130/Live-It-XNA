@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace WindowsGame1
         {
             get
             {
-                return 600;
+                return 2000;
             }
         }
         public static int MinViewPortSize
@@ -43,6 +44,16 @@ namespace WindowsGame1
             get
             {
                 return new Point(0,0);
+            }
+        }
+
+        public static Rectangle DefaultMiniMap
+        {
+            get
+            {
+                Rectangle r = new Rectangle(0,0,(int)( GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.3),(int)( GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.3) );
+                r.Y = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - r.Height;
+                return r;
             }
         }
         #endregion
@@ -99,21 +110,49 @@ namespace WindowsGame1
         {
             get
             {
-                return 50;
+                return (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.03);
             }
         }
         public static int ButtonMarginLeft
         {
             get
             {
-                return 10;
+                return (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width * 0.01);
+            }
+        }
+        public static Color ButtonActiveColor
+        {
+            get
+            {
+                return Color.Red;
+            }
+        }
+        public static Color ButtonHoverColor
+        {
+            get
+            {
+                return Color.Silver;
+            }
+        }
+        public static Color BorderColor
+        {
+            get
+            {
+                return Color.Black;
+            }
+        }
+        public static int ButtonBorderWidth
+        {
+            get
+            {
+                return 5;
             }
         }
         public static int ButtonMarginTop
         {
             get
             {
-                return 40;
+                return (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.02);
             }
         }
 

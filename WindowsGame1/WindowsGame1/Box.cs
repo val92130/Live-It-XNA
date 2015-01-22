@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using WindowsGame1.Texturing;
 
 namespace WindowsGame1
 {
@@ -26,6 +27,8 @@ namespace WindowsGame1
         EBoxGround _ground;
         List<Animal> _animalList;
         private  Rectangle _source;
+        SpriteAnimation _animation;
+        Texture2D _animationWater;
 
         public Box( int line, int column, MainGame Game )
         {
@@ -38,6 +41,8 @@ namespace WindowsGame1
             this._animalList = new List<Animal>();
             _position = new Point( this._line * this._game.BoxSize, this._column * this._game.BoxSize );
             _ground = GameVariables.DefaultBoxTexture;
+            _animationWater = _game.Content.Load<Texture2D>("Textures/Water-SpriteSheet");
+            _animation = new SpriteAnimation(_game, _animationWater, this.RelativeArea, 512, 512, 512, 0, 4);
         }
 
         #region Position and Neighbors
@@ -161,6 +166,7 @@ namespace WindowsGame1
 
         internal void Draw( GraphicsDevice Graphics, SpriteBatch spriteBatch, Rectangle target, Rectangle viewPort, GameTime gameTime )
         {
+            _animation.Update(gameTime);
             if( _graphics == null )
             {
                 _graphics = Graphics;
@@ -180,9 +186,29 @@ namespace WindowsGame1
             this._relativePosition.Y = newYpos;
             this._relativeSize.Height = newSize;
             this._relativeSize.Width = newSize;
+            if (this.Ground == EBoxGround.Water)
+            {
+                spriteBatch.Draw(_animationWater, new Rectangle(newXpos, newYpos, newSize, newSize), _animation.SourceRect, Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(_game.GameTexture.GetTexture(this), this.RelativeArea, _color);
+            }
 
-            spriteBatch.Draw( _game.GameTexture.GetTexture( this ), this.RelativeArea, _color );
         }
+        internal void DrawMiniMap(GraphicsDevice Graphics,  SpriteBatch spriteBatch, Rectangle target, Rectangle viewPort)
+        {
+            var newSize = (int)((this.Source.Width / (double)viewPort.Width) * target.Width + 2);
+            int newXpos =
+                (int)(this.Area.X / (this._game.BoxSize / ((this.Source.Width / (double)viewPort.Width) * target.Width)))
+                - (int)
+                  (viewPort.X / (this._game.BoxSize / ((this.Source.Width / (double)viewPort.Width) * target.Width)));
+            int newYpos =
+                (int)(this.Area.Y / (this._game.BoxSize / ((this.Source.Width / (double)viewPort.Width) * target.Width)))
+                - (int)
+                  (viewPort.Y / (this._game.BoxSize / ((this.Source.Width / (double)viewPort.Width) * target.Width)));
 
+            spriteBatch.Draw(_game.GameTexture.GetTexture(this), new Rectangle(newXpos + target.X, newYpos + target.Y, newSize, newSize), _color);
+        }
     }
 }

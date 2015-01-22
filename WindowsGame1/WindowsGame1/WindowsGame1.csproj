@@ -83,6 +83,7 @@
     <Compile Include="EBoxGround.cs" />
     <Compile Include="EButtonAction.cs" />
     <Compile Include="EMovingDirection.cs" />
+    <Compile Include="SoundEnvironment.cs" />
     <Compile Include="Texturing\GameTexture.cs" />
     <Compile Include="GameVariables.cs" />
     <Compile Include="KeyControl.cs" />

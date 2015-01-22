@@ -25,12 +25,14 @@ namespace WindowsGame1
         EButtonAction _buttonAction;
         GraphicsDevice _graphics;
         public  int DeadAnimals;
+        SoundEnvironment _soundEnvironment;
         public MainGame(int boxCountPerLine, int boxSizeInMeter, ContentManager Content, SpriteBatch SpriteBatch, GraphicsDevice Graphics)
         {
             _graphics = Graphics;
             _content = Content;
             _spriteBatch = SpriteBatch;
             _keyControl = new KeyControl(this);
+            _soundEnvironment = new SoundEnvironment(this);
             _gameTexture = new GameTexture(this, _content);
             _buttonsTextures = new List<Button>();
             _buttonsActions = new List<Button>();

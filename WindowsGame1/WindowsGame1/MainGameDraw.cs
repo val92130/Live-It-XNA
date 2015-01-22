@@ -35,6 +35,8 @@ namespace WindowsGame1
            
             _keyControl.UpdateInput();
 
+            _soundEnvironment.Update();
+
             foreach (Button b in _buttonsTextures)
             {
                 b.Update();

@@ -18,30 +18,46 @@ namespace WindowsGame1
         SpriteBatch _spriteBatch;
         GraphicsDevice _graphics;
         List<Box> _boxList;
+        List<Box> _miniMapBoxes;
         public Camera(MainGame Game, SpriteBatch spriteBatch, GraphicsDevice Graphics)
-        {       
+        {
+
             _game = Game;
             _graphics = Graphics;
             _spriteBatch = spriteBatch;
+            this._miniMap = GameVariables.DefaultMiniMap;
+            this._miniMapViewPort = new Rectangle(0, 0, 10000, 10000);
             _boxList = new List<Box>();
             _screen = new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
             this._viewPort = new Rectangle(GameVariables.DefaultViewPortPosition.X, GameVariables.DefaultViewPortPosition.Y, GameVariables.DefaultViewPortSize, GameVariables.DefaultViewPortSize);
+
         }
         public void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+
             for (int i = 0; i < this._boxList.Count; i++)
             {
-                this._boxList[i].Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
+               this._boxList[i].Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
+
             foreach (Animal a in _game.Animals)
             {
                 a.Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
+
+            _spriteBatch.Draw(_game.GameTexture.GetTexture(EBoxGround.Grass), new Rectangle(_miniMap.X, _miniMap.Y - 5, _miniMap.Width + 5, _miniMap.Height + 5), GameVariables.BorderColor);
+
+            for (int i = 0; i < this._miniMapBoxes.Count; i++)
+            {
+                this._miniMapBoxes[i].DrawMiniMap(_graphics, _spriteBatch, _miniMap, _miniMapViewPort);
+            }
+
         }
 
         public void Update(GameTime gameTime)
         {
             _boxList = _game.GetOverlappedBoxes(_viewPort);
+            _miniMapBoxes = _game.GetOverlappedBoxes(_miniMapViewPort);
             AdjustViewPort();
         }
 
