@@ -20,7 +20,6 @@ namespace WindowsGame1
         MouseState oldMouse;
         EBoxGround _textureToSelect;
         EButtonAction _actionToDo = EButtonAction.None;
-        bool clicked = false;
 
         MainGame _game;
         public Button(MainGame Game, Texture2D texture, SpriteFont font, SpriteBatch sBatch, string Text, Point Location, EBoxGround TextureToSelect)
@@ -29,7 +28,7 @@ namespace WindowsGame1
             _textureToSelect = TextureToSelect;
             image = texture;
             this.font = font;
-            location = new Rectangle(Location.X, Location.Y, 100, GameVariables.ButtonHeight);
+            location = new Rectangle(Location.X, Location.Y, 150,GameVariables.ButtonHeight);
             spriteBatch = sBatch;
             this.Text = Text;
         }
@@ -39,7 +38,7 @@ namespace WindowsGame1
             _actionToDo = Action;
             image = texture;
             this.font = font;
-            location = new Rectangle(Location.X, Location.Y, 100, 50);
+            location = new Rectangle( Location.X, Location.Y, 150, GameVariables.ButtonHeight );
             spriteBatch = sBatch;
             this.Text = Text;
         }
@@ -87,7 +86,6 @@ namespace WindowsGame1
                 {
                     if (location.Contains(new Point(mouse.X, mouse.Y)))
                     {
-                        clicked = true;
                         _game.SelectedTexture = _textureToSelect;
                     }
                 }

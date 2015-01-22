@@ -34,6 +34,13 @@ namespace WindowsGame1
                 this._boxList[i].Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
         }
+        public void DrawAnimals( Microsoft.Xna.Framework.GameTime gameTime )
+        {
+            foreach( Animal a in _game.Animals )
+            {
+                a.Draw( _graphics, _spriteBatch, _screen, _viewPort, gameTime );
+            }
+        }
 
         public void Update(GameTime gameTime)
         {

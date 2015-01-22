@@ -16,7 +16,8 @@ namespace WindowsGame1
         }
         public void Draw(GraphicsDevice Graphics, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Camera.Draw(gameTime);
+            _gameTime = gameTime;
+            Camera.Draw(_gameTime);
             foreach (Button b in _buttonsTextures)
             {
                 b.Draw();
@@ -25,12 +26,21 @@ namespace WindowsGame1
             {
                 b.Draw();
             }
+
+            Camera.DrawAnimals( _gameTime );
+
+            foreach( Animal a in this.Animals )
+            {
+                spriteBatch.DrawString( _content.Load<SpriteFont>("Impact"),
+                this.Animals[0].RelativePosition.ToString(),
+                new Vector2(10,10),
+                Color.Black );
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            _gameTime = gameTime;
-            Camera.Update(gameTime);
+            Camera.Update(_gameTime);
 
             _keyControl.UpdateInput();
 
@@ -41,6 +51,10 @@ namespace WindowsGame1
             foreach (Button b in _buttonsActions)
             {
                 b.Update();
+            }
+            foreach( Animal a in this.Animals )
+            {
+                a.Update(gameTime);
             }
         }
 

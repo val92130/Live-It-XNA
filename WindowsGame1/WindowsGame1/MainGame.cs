@@ -24,6 +24,7 @@ namespace WindowsGame1
         EBoxGround _selectedTexture = EBoxGround.Grass;
         EButtonAction _buttonAction;
         GraphicsDevice _graphics;
+        public  int DeadAnimals;
         public MainGame(int boxCountPerLine, int boxSizeInMeter, ContentManager Content, SpriteBatch SpriteBatch, GraphicsDevice Graphics)
         {
             _graphics = Graphics;
@@ -34,25 +35,33 @@ namespace WindowsGame1
             _buttonsTextures = new List<Button>();
             _buttonsActions = new List<Button>();
             _camera = new Camera(this, _spriteBatch, _graphics);
-            this.CreateTextureButton("Snow", EBoxGround.Snow);
-            this.CreateTextureButton("Grass", EBoxGround.Grass);
-            this.CreateTextureButton("Dirt", EBoxGround.Dirt);
-
-            this.CreateActionButton("Change", EBoxGround.Snow, EButtonAction.ChangeTexture);
-            this.CreateActionButton("Fill", EBoxGround.Snow, EButtonAction.FillTexture);
-
+            CreateButtons();
 
             this._boxCountPerLine = boxCountPerLine;
             this._boxes = new Box[boxCountPerLine * boxCountPerLine];
-            this._boxSize = boxSizeInMeter;
+            this._boxSize = boxSizeInMeter * 100;
             int count = 0;
             for (int i = 0; i < this._boxCountPerLine; i++)
             {
                 for (int j = 0; j < this._boxCountPerLine; j++)
                 {
-                    this._boxes[count++] = new Box(new Point(i, j), 150, 150, this);
+                    this._boxes[count++] = new Box(i,j, this);
                 }
             }
+        }
+
+        private void CreateButtons()
+        {
+            this.CreateTextureButton( "Snow", EBoxGround.Snow );
+            this.CreateTextureButton( "Grass", EBoxGround.Grass );
+            this.CreateTextureButton( "Dirt", EBoxGround.Dirt );
+            this.CreateTextureButton( "Mountain", EBoxGround.Mountain );
+            this.CreateTextureButton( "Water", EBoxGround.Water );
+            this.CreateTextureButton( "Desert", EBoxGround.Desert );
+            this.CreateActionButton( "Change", EBoxGround.Snow, EButtonAction.ChangeTexture );
+            this.CreateActionButton( "Add Animal", EBoxGround.Snow, EButtonAction.AddAnimal );
+            this.CreateActionButton( "Fill", EBoxGround.Snow, EButtonAction.FillTexture );
+
         }
 
         public int BoxSize
@@ -60,6 +69,13 @@ namespace WindowsGame1
             get
             {
                 return _boxSize;
+            }
+        }
+        public int MapSize
+        {
+            get
+            {
+                return this._boxCountPerLine * this._boxSize;
             }
         }
 
@@ -152,6 +168,7 @@ namespace WindowsGame1
                     if (this[i, j] != null)
                     {
                         Box b = this[j, i];
+                        b.Source = b.Area;
                         boxList.Add(b);
                     }
                 }

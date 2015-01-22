@@ -8,6 +8,7 @@ namespace WindowsGame1
     public enum EButtonAction
     {
         None,
+        AddAnimal,
         ChangeTexture,
         FillTexture,
         FreeMode,

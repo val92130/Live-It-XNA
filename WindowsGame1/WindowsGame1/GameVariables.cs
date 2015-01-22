@@ -113,7 +113,7 @@ namespace WindowsGame1
         {
             get
             {
-                return 100;
+                return 40;
             }
         }
 

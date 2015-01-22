@@ -53,7 +53,7 @@ namespace WindowsGame1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _game = new MainGame(50,50, this.Content, spriteBatch, GraphicsDevice);           
+            _game = new MainGame(50,2, this.Content, spriteBatch, GraphicsDevice);           
             _game.LoadContent();
             // TODO: use this.Content to load your game content here
         }

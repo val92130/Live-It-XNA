@@ -24,16 +24,19 @@ namespace WindowsGame1
         private Point _relativePosition;
         private Rectangle _relativeSize;
         EBoxGround _ground;
+        List<Animal> _animalList;
+        private  Rectangle _source;
 
-        public Box(Point Position, int Width, int Height, MainGame Game)
+        public Box( int line, int column, MainGame Game )
         {
-            _position = Position;
-            _height = Height;
-            _width = Width;
-            _game = Game;
-            _line = (int)Position.X;
-            _column = (int)Position.Y;
-            _position = new Point(this._line * this._game.BoxSize, this._column * this._game.BoxSize);
+            this._game = Game;
+            this._line = line;
+            this._column = column;
+            this._ground = EBoxGround.Grass;
+            this._relativePosition = new Point( line, column );
+            this._relativeSize = new Rectangle(0,0, this._game.BoxSize, this._game.BoxSize );
+            this._animalList = new List<Animal>();
+            _position = new Point( this._line * this._game.BoxSize, this._column * this._game.BoxSize );
             _ground = GameVariables.DefaultBoxTexture;
         }
 
@@ -70,7 +73,7 @@ namespace WindowsGame1
         {
             get
             {
-                return new Rectangle(Position.X, Position.Y, _width, _height);
+                return new Rectangle( this.Location.X, this.Location.Y, this._game.BoxSize, this._game.BoxSize );
             }
         }
         public Point Position
@@ -111,7 +114,7 @@ namespace WindowsGame1
         {
             get
             {
-                return new Rectangle(this.RelativePosition.X, this.RelativePosition.Y, this.RelativeSize.Width, this.RelativeSize.Height);
+                return new Rectangle( this.RelativePosition.X, this.RelativePosition.Y, this.RelativeSize.Width, this.RelativeSize.Height );
             }
         }
 
@@ -128,11 +131,37 @@ namespace WindowsGame1
                 _ground = value;
             }
         }
-
-
-        internal void Draw(GraphicsDevice Graphics, SpriteBatch spriteBatch,Rectangle target, Rectangle viewPort, GameTime gameTime)
+        public void RemoveFromList( Animal a )
         {
-            if (_graphics == null)
+            if( this._animalList.Contains( a ) )
+            {
+                a.RemoveFromList( this );
+                this._animalList.Remove( a );
+            }
+        }
+        public Point Location
+        {
+            get
+            {
+                return new Point( this._line * this._game.BoxSize, this._column * this._game.BoxSize );
+            }
+        }
+        public Rectangle Source
+        {
+            get
+            {
+                return this._source;
+            }
+
+            set
+            {
+                this._source = value;
+            }
+        }
+
+        internal void Draw( GraphicsDevice Graphics, SpriteBatch spriteBatch, Rectangle target, Rectangle viewPort, GameTime gameTime )
+        {
+            if( _graphics == null )
             {
                 _graphics = Graphics;
             }
@@ -150,7 +179,8 @@ namespace WindowsGame1
             this._relativeSize.Height = newSize;
             this._relativeSize.Width = newSize;
 
-            spriteBatch.Draw(_game.GameTexture.GetTexture(this), this.RelativeArea, _color);
+            spriteBatch.Draw( _game.GameTexture.GetTexture( this ), this.RelativeArea, _color );
         }
+
     }
 }

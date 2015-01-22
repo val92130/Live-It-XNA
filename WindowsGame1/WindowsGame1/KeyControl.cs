@@ -135,6 +135,9 @@ namespace WindowsGame1
                             }
                         }
                         break;
+                    case EButtonAction.AddAnimal:
+                        _game.CreateAnimal( EAnimalTexture.Cat, new Point( 50, 50 ) );
+                        break;
                 }
             }
             intersect = false;
