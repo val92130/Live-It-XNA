@@ -59,7 +59,8 @@ namespace WindowsGame1
             this.CreateTextureButton( "Water", EBoxGround.Water );
             this.CreateTextureButton( "Desert", EBoxGround.Desert );
             this.CreateActionButton( "Change", EBoxGround.Snow, EButtonAction.ChangeTexture );
-            this.CreateActionButton( "Add Animal", EBoxGround.Snow, EButtonAction.AddAnimal );
+            this.CreateActionButton( "Add Cat", EBoxGround.Snow, EButtonAction.AddAnimal, EAnimalTexture.Cat );
+            this.CreateActionButton("Add Dog", EBoxGround.Snow, EButtonAction.AddAnimal, EAnimalTexture.Dog );
             this.CreateActionButton( "Fill", EBoxGround.Snow, EButtonAction.FillTexture );
 
         }
@@ -69,6 +70,14 @@ namespace WindowsGame1
             get
             {
                 return _boxSize;
+            }
+        }
+
+        public ContentManager Content
+        {
+            get
+            {
+                return _content;
             }
         }
         public int MapSize

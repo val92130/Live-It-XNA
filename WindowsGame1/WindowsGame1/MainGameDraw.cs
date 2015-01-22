@@ -26,22 +26,13 @@ namespace WindowsGame1
             {
                 b.Draw();
             }
-
-            Camera.DrawAnimals( _gameTime );
-
-            foreach( Animal a in this.Animals )
-            {
-                spriteBatch.DrawString( _content.Load<SpriteFont>("Impact"),
-                this.Animals[0].RelativePosition.ToString(),
-                new Vector2(10,10),
-                Color.Black );
-            }
         }
 
         public void Update(GameTime gameTime)
         {
-            Camera.Update(_gameTime);
 
+            Camera.Update(_gameTime);
+           
             _keyControl.UpdateInput();
 
             foreach (Button b in _buttonsTextures)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WindowsGame1.Texturing;
 
 namespace WindowsGame1
 {
@@ -30,6 +31,14 @@ namespace WindowsGame1
         private GraphicsDevice _graphics;
         public  EBoxGround FavoriteEnvironnment;
         private bool _isInWater;
+        protected int DefaultSpeed;
+        protected SpriteAnimation _animationLeft;
+        protected SpriteAnimation _animationRight;
+        protected SpriteAnimation _animationUp;
+        protected SpriteAnimation _animationDown;
+        protected Texture2D _spriteSheet;
+        protected Rectangle _sourceRect;
+        protected List<Box> WalkableBoxes = new List<Box>();
         public Animal(MainGame Game, Point Position)
         {
             this._game = Game;
@@ -354,29 +363,24 @@ namespace WindowsGame1
                         {
                             this._isInWater = true;
 
-                            for( int i = 0; i < this._game.Boxes.Length; i++ )
+                            if (this.Thirst >= 15)
                             {
-                                if( this._game.Boxes[i].Area.Intersects( this.FieldOfView )
-                                    && this._game.Boxes[i].Ground != EBoxGround.Water )
+                                this._isDrinking = true;
+                                this.Speed = 0;
+                                this.Thirst -= 5;
+                            }
+                            else
+                            {
+                                if (this.WalkableBoxes.Count != 0)
                                 {
-                                    //if( !this.WalkableBoxes.Contains( this._map.Boxes[i] ) )
-                                    //{
-                                    //    this.WalkableBoxes.Add( this._map.Boxes[i] );
-                                    //    this.Speed = 5000;
-                                    //    this.ChangePosition();
-                                    //}
+                                    var r = new Random();
+                                    this.ChangePosition(
+                                        this.WalkableBoxes[r.Next(0, this.WalkableBoxes.Count)].Location);
                                 }
-
-                                //if( this.WalkableBoxes.Count != 0 )
-                                //{
-                                //    for( int j = 0; j < this.WalkableBoxes.Count; j++ )
-                                //    {
-                                //        if( !this.WalkableBoxes[j].Area.IntersectsWith( this.FieldOfView ) )
-                                //        {
-                                //            this.WalkableBoxes.Remove( this.WalkableBoxes[j] );
-                                //        }
-                                //    }
-                                //}
+                                else
+                                {
+                                    this.ChangePosition();
+                                }
                             }
 
                         }
@@ -441,7 +445,6 @@ namespace WindowsGame1
         }
         public void Die()
         {
-            // Rectangle r = new Rectangle(this.RelativePosition, this.RelativeSize);
             this.IsDead = true;
             this._game.DeadAnimals += 1;
             foreach( Box b in this._game.Boxes )
@@ -480,7 +483,21 @@ namespace WindowsGame1
 
             if( this.Area.Intersects( viewPort ) )
             {
-                spriteBatch.Draw( _game.GameTexture.GetTexture( this ), new Rectangle(newXpos, newYpos, newWidth, newHeight), Color.White );
+                switch (this.EMovingDirection)
+                {
+                    case WindowsGame1.EMovingDirection.Left:
+                        spriteBatch.Draw( _spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationLeft.SourceRect, Color.White );
+                        break;
+                    case WindowsGame1.EMovingDirection.Right:
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationRight.SourceRect, Color.White);
+                        break;
+                    case WindowsGame1.EMovingDirection.Up:
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationUp.SourceRect, Color.White);
+                        break;
+                    case WindowsGame1.EMovingDirection.Down:
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationDown.SourceRect, Color.White);
+                        break;
+                }
             }
 
 
@@ -488,13 +505,37 @@ namespace WindowsGame1
 
         public void Update(GameTime gameTime)
         {
-
+            switch (this.EMovingDirection)
+            {
+                case WindowsGame1.EMovingDirection.Left :
+                    _animationLeft.Update(gameTime);
+                    break;
+                case WindowsGame1.EMovingDirection.Right:
+                    _animationRight.Update(gameTime);
+                    break;
+                case WindowsGame1.EMovingDirection.Up:
+                    _animationUp.Update(gameTime);
+                    break;
+                case WindowsGame1.EMovingDirection.Down:
+                    _animationDown.Update(gameTime);
+                    break;
+            }
             this.Position = new Point(
 this._position.X + (int)(this.Direction.X * (int)(this.Speed * _game.DeltaTime)),
 this._position.Y + (int)(this.Direction.Y * (int)(this.Speed * _game.DeltaTime)) );
 
             this.Behavior();
 
+            this.BoxList = _game.GetOverlappedBoxes(this.Area);
+
+            this.WalkableBoxes = _game.GetOverlappedBoxes(this.FieldOfView);
+            for (int i = 0; i < this.WalkableBoxes.Count; i++ )
+            {
+                if (this.WalkableBoxes[i].Ground == EBoxGround.Water)
+                {
+                    WalkableBoxes.Remove(this.WalkableBoxes[i]);
+                }
+            }
             this.GetAnimalsAround();
         }
 

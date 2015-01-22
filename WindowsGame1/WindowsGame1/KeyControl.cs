@@ -12,6 +12,8 @@ namespace WindowsGame1
         MainGame _game;
         MouseState _mouseState;
         Point _mousePosition;
+        MouseState _prevMouseState;
+        MouseState _currMouseState;
         bool up, down, left, right, zoomPlus, zoomMinus, clicked;
         public KeyControl(MainGame Game)
         {
@@ -60,8 +62,26 @@ namespace WindowsGame1
                 return _mousePosition;
             }
         }
+        public bool Clicked
+        {
+            get
+            {
+                return clicked;
+            }
+        }
         public void UpdateActions()
         {
+            _prevMouseState = _currMouseState;
+            _currMouseState = Mouse.GetState();
+
+            if (_currMouseState.LeftButton == ButtonState.Pressed && _prevMouseState.LeftButton == ButtonState.Released)
+            {
+                clicked = true;
+                ButtonHandling();
+            } else if(_currMouseState.LeftButton == ButtonState.Released && _prevMouseState.LeftButton == ButtonState.Pressed)
+            {
+                clicked = false;
+            }
             if (up)
             {
                 this._game.Camera.MoveViewPortY(-(int)(GameVariables.CameraSpeed * _game.DeltaTime));
@@ -87,12 +107,6 @@ namespace WindowsGame1
                 this._game.Camera.Zoom((int)(GameVariables.ZoomValue * _game.DeltaTime));
             }
 
-            if (this.MouseState.LeftButton == ButtonState.Pressed)
-            {
-                clicked = true;
-                ButtonHandling();
-
-            }
         }
 
         private void ButtonHandling()
@@ -103,6 +117,18 @@ namespace WindowsGame1
                 if (b.Area.Contains(this.MousePosition))
                 {
                     _game.ButtonAction = b.Action;
+                    b.Active = true;
+                    foreach (Button bu in _game.AllButtons)
+                    {
+                        if (bu != b)
+                        {
+                            bu.Active = false;
+                        }                    
+                    }
+                    if (b.SelectedAnimal != EAnimalTexture.None)
+                    {
+                        _game.SelectedAnimal = b.SelectedAnimal;
+                    }
                 }
             }
 
@@ -136,7 +162,14 @@ namespace WindowsGame1
                         }
                         break;
                     case EButtonAction.AddAnimal:
-                        _game.CreateAnimal( EAnimalTexture.Cat, new Point( 50, 50 ) );
+                        foreach (Box b in _game.Camera.BoxList)
+                        {
+                            if (b.RelativeArea.Intersects(new Rectangle(MousePosition.X, MousePosition.Y, 50, 50)))
+                            {
+                                _game.CreateAnimal(_game.SelectedAnimal, b.Position);
+                                break;
+                            }
+                        }                       
                         break;
                 }
             }
@@ -204,7 +237,6 @@ namespace WindowsGame1
             {
                 zoomMinus = false;
             }
-            clicked = false;
 
         }
     }

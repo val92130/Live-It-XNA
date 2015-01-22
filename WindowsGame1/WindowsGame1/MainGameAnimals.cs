@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using WindowsGame1.Animals;
 
 namespace WindowsGame1
 {
@@ -29,6 +30,9 @@ namespace WindowsGame1
             {
                 case "Cat":
                     a = new Cat( this, StartPosition );
+                    break;
+                case "Dog":
+                    a = new Dog(this, StartPosition);
                     break;
                 default:
                     throw new NotSupportedException( "Unknown animal type" );

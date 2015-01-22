@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1.Texturing;
 
 namespace WindowsGame1
 {
@@ -18,12 +19,16 @@ namespace WindowsGame1
         Texture2D _textureDesert;
 
         Texture2D _textureCat;
+        Texture2D _textureDog;
+
+        SpriteAnimation _catAnimation;
 
         ContentManager _content;
         public GameTexture(MainGame Game, ContentManager Content)
         {
             _game = Game;
             _content = Content;
+
             _textureGrass = _content.Load<Texture2D>("Textures/Grass");
             _textureDirt = _content.Load<Texture2D>( "Textures/Dirt" );
             _textureSnow = _content.Load<Texture2D>( "Textures/Snow" );
@@ -31,6 +36,7 @@ namespace WindowsGame1
             _textureWater = _content.Load<Texture2D>( "Textures/Water" );
             _textureMountain = _content.Load<Texture2D>( "Textures/Mountain" );
             _textureCat = _content.Load<Texture2D>( "Animals/Cat" );
+            _textureDog = _content.Load<Texture2D>("Animals/Dog");
         }
 
         public Texture2D GetTexture(Box b)
@@ -59,6 +65,8 @@ namespace WindowsGame1
             {
                 case EAnimalTexture.Cat:
                     return this._textureCat;
+                case EAnimalTexture.Dog:
+                    return this._textureDog;
                 default:
                     throw new ArgumentException( "Unknown texture type" );
             }

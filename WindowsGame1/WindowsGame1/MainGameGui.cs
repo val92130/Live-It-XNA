@@ -10,6 +10,7 @@ namespace WindowsGame1
     public partial class MainGame
     {
         List<Button> _allButtons = new List<Button>();
+        EAnimalTexture _selectedAnimal;
         public void CreateTextureButton(string Text, EBoxGround TextureToSelect)
         {
             int maxYpos = 0;
@@ -38,6 +39,21 @@ namespace WindowsGame1
             }
             Point newPos = new Point(GameVariables.ButtonMarginLeft, maxYpos + GameVariables.ButtonMarginTop + GameVariables.ButtonHeight);
             Button button = new Button(this, _gameTexture.GetTexture(ButtonTexture), _content.Load<SpriteFont>("Impact"), _spriteBatch, Text, newPos, ActionToDo);
+            _buttonsActions.Add(button);
+            _allButtons.Add(button);
+        }
+        public void CreateActionButton(string Text, EBoxGround ButtonTexture, EButtonAction ActionToDo, EAnimalTexture AnimalToCreate)
+        {
+            int maxYpos = 0;
+            foreach (Button b in _allButtons)
+            {
+                if (b.Area.Y > maxYpos)
+                {
+                    maxYpos = b.Area.Y;
+                }
+            }
+            Point newPos = new Point(GameVariables.ButtonMarginLeft, maxYpos + GameVariables.ButtonMarginTop + GameVariables.ButtonHeight);
+            Button button = new Button(this, _gameTexture.GetTexture(ButtonTexture), _content.Load<SpriteFont>("Impact"), _spriteBatch, Text, newPos, ActionToDo, AnimalToCreate);
             _buttonsActions.Add(button);
             _allButtons.Add(button);
         }
@@ -71,6 +87,17 @@ namespace WindowsGame1
             set
             {
                 _selectedTexture = value;
+            }
+        }
+        public EAnimalTexture SelectedAnimal
+        {
+            get
+            {
+                return _selectedAnimal;
+            }
+            set
+            {
+                _selectedAnimal = value;
             }
         }
     }

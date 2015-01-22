@@ -165,6 +165,7 @@ namespace WindowsGame1
             {
                 _graphics = Graphics;
             }
+            
             var newSize = (int)((this.Area.Width / (double)viewPort.Width) * target.Width + 2);
             int newXpos =
                 (int)(this.Area.X / (this._game.BoxSize / ((this.Area.Width / (double)viewPort.Width) * target.Width)))
@@ -174,6 +175,7 @@ namespace WindowsGame1
                 (int)(this.Area.Y / (this._game.BoxSize / ((this.Area.Width / (double)viewPort.Width) * target.Width)))
                 - (int)
                   (viewPort.Y / (this._game.BoxSize / ((this.Area.Width / (double)viewPort.Width) * target.Width)));
+
             this._relativePosition.X = newXpos;
             this._relativePosition.Y = newYpos;
             this._relativeSize.Height = newSize;

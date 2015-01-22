@@ -33,18 +33,16 @@ namespace WindowsGame1
             {
                 this._boxList[i].Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
-        }
-        public void DrawAnimals( Microsoft.Xna.Framework.GameTime gameTime )
-        {
-            foreach( Animal a in _game.Animals )
+            foreach (Animal a in _game.Animals)
             {
-                a.Draw( _graphics, _spriteBatch, _screen, _viewPort, gameTime );
+                a.Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            _boxList = _game.GetOverlappedBoxes(_viewPort);     
+            _boxList = _game.GetOverlappedBoxes(_viewPort);
+            AdjustViewPort();
         }
 
         public List<Box> BoxList
@@ -71,17 +69,42 @@ namespace WindowsGame1
         {
             _viewPort.Y += centimeters;
         }
-        public void Zoom(int centimeters)
+        private void AdjustViewPort()
         {
-            if (_viewPort.Width < GameVariables.MinViewPortSize)
+            if (this._viewPort.Left < 0)
             {
-                _viewPort.Width = GameVariables.MinViewPortSize;
-                _viewPort.Height = GameVariables.MinViewPortSize;
+                this._viewPort.X = 0;
             }
-            else
+
+            if (this._viewPort.Top < 0)
             {
-                _viewPort.Width += centimeters;
-                _viewPort.Height += centimeters;
+                this._viewPort.Y = 0;
+            }
+
+            if (this._viewPort.Bottom > this._game.MapSize)
+            {
+                this._viewPort.Y = this._game.MapSize - this._viewPort.Height;
+            }
+
+            if (this._viewPort.Right > this._game.MapSize)
+            {
+                this._viewPort.X = this._game.MapSize - this._viewPort.Width;
+            }
+        }
+        public void Zoom(int meters)
+        {
+            this._viewPort.Width += meters;
+            this._viewPort.Height += meters;
+            if (this._viewPort.Width < GameVariables.MinViewPortSize || this._viewPort.Height < GameVariables.MinViewPortSize)
+            {
+                this._viewPort.Width = GameVariables.MinViewPortSize;
+                this._viewPort.Height = GameVariables.MinViewPortSize;
+            }
+
+            if (this._viewPort.Width > this._game.MapSize)
+            {
+                this._viewPort.Height = this._game.MapSize;
+                this._viewPort.Width = this._game.MapSize;
             }
 
         }

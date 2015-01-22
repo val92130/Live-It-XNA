@@ -20,6 +20,8 @@ namespace WindowsGame1
         MouseState oldMouse;
         EBoxGround _textureToSelect;
         EButtonAction _actionToDo = EButtonAction.None;
+        EAnimalTexture _animalToCreate = EAnimalTexture.None;
+        bool _active = false;
 
         MainGame _game;
         public Button(MainGame Game, Texture2D texture, SpriteFont font, SpriteBatch sBatch, string Text, Point Location, EBoxGround TextureToSelect)
@@ -42,6 +44,11 @@ namespace WindowsGame1
             spriteBatch = sBatch;
             this.Text = Text;
         }
+        public Button(MainGame Game, Texture2D texture, SpriteFont font, SpriteBatch sBatch, string Text, Point Location, EButtonAction Action, EAnimalTexture AnimalToCreate)
+            :this(Game, texture,font,sBatch,Text,Location, Action)
+        {
+            _animalToCreate = AnimalToCreate;
+        }
 
         public string Text
         {
@@ -62,11 +69,30 @@ namespace WindowsGame1
             location.Y = y;
         }
 
+        public bool Active
+        {
+            get
+            {
+                return _active;
+            }
+            set
+            {
+                _active = value;
+            }
+        }
+
         public Rectangle Area
         {
             get
             {
                 return location;
+            }
+        }
+        public EAnimalTexture SelectedAnimal
+        {
+            get
+            {
+                return _animalToCreate;
             }
         }
         public EButtonAction Action
@@ -104,11 +130,17 @@ namespace WindowsGame1
                     location,
                     Color.Silver);
             }
-            else
+            else if(!_active)
             {
                 spriteBatch.Draw(image,
                     location,
                     Color.White);
+            }
+            else if (_active)
+            {
+                spriteBatch.Draw(image,
+                    location,
+                    Color.Red);
             }
 
             spriteBatch.DrawString(font,
