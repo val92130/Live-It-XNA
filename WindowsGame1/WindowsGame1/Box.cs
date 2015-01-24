@@ -42,7 +42,7 @@ namespace WindowsGame1
             _position = new Point( this._line * this._game.BoxSize, this._column * this._game.BoxSize );
             _ground = GameVariables.DefaultBoxTexture;
             _animationWater = _game.Content.Load<Texture2D>("Textures/Water-SpriteSheet");
-            _animation = new SpriteAnimation(_game, _animationWater, this.RelativeArea, 512, 512, 512, 0, 4);
+            _animation = new SpriteAnimation(_game, _animationWater, this.RelativeArea, 512, 505, 512, 0, 4, 80f);
         }
 
         #region Position and Neighbors
@@ -136,6 +136,13 @@ namespace WindowsGame1
                 _ground = value;
             }
         }
+        public List<Animal> Animals
+        {
+            get
+            {
+                return _animalList;
+            }
+        }
         public void RemoveFromList( Animal a )
         {
             if( this._animalList.Contains( a ) )
@@ -195,6 +202,25 @@ namespace WindowsGame1
                 spriteBatch.Draw(_game.GameTexture.GetTexture(this), this.RelativeArea, _color);
             }
 
+        }
+
+        public void Update()
+        {
+            foreach (Animal a in _game.Animals)
+            {
+                if (_animalList.Contains(a))
+                {
+                    if (!a.Area.Intersects(this.Area))
+                    {
+                        _animalList.Remove(a);
+                    }
+                }
+                if (a.Area.Intersects(this.Area))
+                {
+                    this._animalList.Add(a);
+                }
+                
+            }
         }
         internal void DrawMiniMap(GraphicsDevice Graphics,  SpriteBatch spriteBatch, Rectangle target, Rectangle viewPort)
         {

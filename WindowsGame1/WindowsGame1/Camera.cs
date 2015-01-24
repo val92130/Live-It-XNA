@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1.MapElements;
 
 namespace WindowsGame1
 {
@@ -30,7 +31,6 @@ namespace WindowsGame1
             _boxList = new List<Box>();
             _screen = new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
             this._viewPort = new Rectangle(GameVariables.DefaultViewPortPosition.X, GameVariables.DefaultViewPortPosition.Y, GameVariables.DefaultViewPortSize, GameVariables.DefaultViewPortSize);
-
         }
         public void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -45,14 +45,31 @@ namespace WindowsGame1
                 a.Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
 
+            foreach (MapElement m in _game.MapElements)
+            {
+                m.Draw(_graphics, _spriteBatch, _screen, _viewPort);
+            }
+
             _spriteBatch.Draw(_game.GameTexture.GetTexture(EBoxGround.Grass), new Rectangle(_miniMap.X, _miniMap.Y - 5, _miniMap.Width + 5, _miniMap.Height + 5), GameVariables.BorderColor);
 
             for (int i = 0; i < this._miniMapBoxes.Count; i++)
             {
                 this._miniMapBoxes[i].DrawMiniMap(_graphics, _spriteBatch, _miniMap, _miniMapViewPort);
             }
+            foreach (MapElement m in _game.MapElements)
+            {
+                m.Draw(_graphics, _spriteBatch, _miniMap, _miniMapViewPort);
+            }
+            foreach (Animal a in _game.Animals)
+            {
+                a.Draw(_graphics, _spriteBatch, _miniMap, _miniMapViewPort, gameTime);
+            }
+            this.DrawViewPortMiniMap(_game.GameTexture.GetTexture(EBoxGround.Grass), _graphics, _spriteBatch, _viewPort, _miniMap, _miniMapViewPort);
+
 
         }
+
+
 
         public void Update(GameTime gameTime)
         {
@@ -123,6 +140,42 @@ namespace WindowsGame1
                 this._viewPort.Width = this._game.MapSize;
             }
 
+        }
+
+        static Texture2D _pointTexture;
+        public void DrawViewPortMiniMap(Texture2D Texture,
+    GraphicsDevice graphics, SpriteBatch spriteBatch,
+    Rectangle source,
+    Rectangle targetMiniMap,
+    Rectangle viewPortMiniMap)
+        
+        {
+            if (_pointTexture == null)
+            {
+                _pointTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                _pointTexture.SetData<Color>(new Color[] { Color.White });
+            }
+            int lineWidth = 1;
+
+            var newSizeMini = (int)((source.Width / (double)viewPortMiniMap.Width) * targetMiniMap.Width + 1);
+            var newHeightMini = (int)((source.Height / (double)viewPortMiniMap.Width) * targetMiniMap.Width + 1);
+            int newXposMini =
+                (int)
+                (source.X / (source.Width / ((source.Width / (double)viewPortMiniMap.Width) * targetMiniMap.Width)))
+                - (int)
+                  (viewPortMiniMap.X
+                   / (source.Width / ((source.Width / (double)viewPortMiniMap.Width) * targetMiniMap.Width)));
+            int newYposMini =
+                (int)
+                (source.Y / (source.Width / ((source.Width / (double)viewPortMiniMap.Width) * targetMiniMap.Width)))
+                - (int)
+                  (viewPortMiniMap.Y
+                   / (source.Width / ((source.Width / (double)viewPortMiniMap.Width) * targetMiniMap.Width)));
+
+            spriteBatch.Draw(_pointTexture, new Rectangle(newXposMini + targetMiniMap.X, newYposMini + targetMiniMap.Y, lineWidth, newHeightMini + lineWidth), GameVariables.DefaultBorderColor);
+            spriteBatch.Draw(_pointTexture, new Rectangle(newXposMini + targetMiniMap.X, newYposMini + targetMiniMap.Y, newHeightMini + lineWidth, lineWidth), GameVariables.DefaultBorderColor);
+            spriteBatch.Draw(_pointTexture, new Rectangle(newXposMini + newHeightMini + targetMiniMap.X, newYposMini + targetMiniMap.Y, lineWidth, newHeightMini + lineWidth), GameVariables.DefaultBorderColor);
+            spriteBatch.Draw(_pointTexture, new Rectangle(newXposMini + targetMiniMap.X, newYposMini + newHeightMini + targetMiniMap.Y, newHeightMini + lineWidth, lineWidth), GameVariables.DefaultBorderColor);
         }
 
 

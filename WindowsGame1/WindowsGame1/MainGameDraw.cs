@@ -18,14 +18,7 @@ namespace WindowsGame1
         {
             _gameTime = gameTime;
             Camera.Draw(_gameTime);
-            foreach (Button b in _buttonsTextures)
-            {
-                b.Draw();
-            }
-            foreach (Button b in _buttonsActions)
-            {
-                b.Draw();
-            }
+            DrawButtons();
         }
 
         public void Update(GameTime gameTime)
@@ -37,19 +30,14 @@ namespace WindowsGame1
 
             _soundEnvironment.Update();
 
-            foreach (Button b in _buttonsTextures)
+            UpdateGUI(gameTime);
+
+            foreach (Box b in this.Boxes)
             {
                 b.Update();
-            }
-            foreach (Button b in _buttonsActions)
-            {
-                b.Update();
-            }
-            foreach( Animal a in this.Animals )
-            {
-                a.Update(gameTime);
             }
         }
+
 
         public void FillBox(Box target, EBoxGround targetColor, EBoxGround Color)
         {

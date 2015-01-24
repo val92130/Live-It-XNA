@@ -8,15 +8,11 @@ using System.Text;
 namespace WindowsGame1.Texturing
 {
     public class SpriteAnimation
-    {   //A Timer variable
-        float timer = 0f;
-        //The interval (100 milliseconds)
-        float interval = 100f;
-        //Current frame holder (start at 1)
+    {   
+        float _timer = 0f;
+        float _interval = 100f;
         int currentFrame = 1;
-        //Width of a single sprite image, not the whole Sprite Sheet
         int _spriteWidth;
-        //Height of a single sprite image, not the whole Sprite Sheet
         int _spriteHeight;
         Rectangle _sourceRect;
         Rectangle _destRect;
@@ -37,11 +33,16 @@ namespace WindowsGame1.Texturing
             _texture = SpriteSheet;
             _numberOfFrames = NumberOfFrames;
         }
+        public SpriteAnimation(MainGame mainGame, Texture2D SpriteSheet, Rectangle DestinationRectangle, int SpriteWidth, int SpriteHeight, int Offset, int YPos, int NumberOfFrames, float interval)
+            :this(mainGame, SpriteSheet, DestinationRectangle, SpriteWidth, SpriteHeight, Offset, YPos, NumberOfFrames)
+        {
+            _interval = interval;
+        }
 
         public void Update(GameTime gameTime)
         {
             _elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (_elapsed >= interval)
+            if (_elapsed >= _interval)
             {
                 if (_frames >= _numberOfFrames - 1)
                 {

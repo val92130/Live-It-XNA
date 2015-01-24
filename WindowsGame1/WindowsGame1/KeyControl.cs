@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1.Enums;
 
 namespace WindowsGame1
 {
@@ -112,6 +113,7 @@ namespace WindowsGame1
         private void ButtonHandling()
         {
             bool intersect = false;
+            // If we clicked on an action Button
             foreach (Button b in _game.ButtonsActions)
             {
                 if (b.Area.Contains(this.MousePosition))
@@ -171,6 +173,26 @@ namespace WindowsGame1
                             }
                         }                       
                         break;
+                    case EButtonAction.AddTree:
+                        foreach (Box b in _game.Camera.BoxList)
+                        {
+                            if (b.RelativeArea.Intersects(new Rectangle(MousePosition.X, MousePosition.Y, 50, 50)))
+                            {
+                                _game.CreateMapElement(EmapElements.Tree, b.Position);
+                                break;
+                            }
+                        }
+                        break;
+                    case EButtonAction.AddRock:
+                        foreach (Box b in _game.Camera.BoxList)
+                        {
+                            if (b.RelativeArea.Intersects(new Rectangle(MousePosition.X, MousePosition.Y, 50, 50)))
+                            {
+                                _game.CreateMapElement(EmapElements.Rock, b.Position);
+                                break;
+                            }
+                        }
+                        break;
                 }
             }
             intersect = false;
@@ -178,6 +200,7 @@ namespace WindowsGame1
         public void UpdateInput()
         {
             UpdateActions();
+            GamePadState GamePadState = GamePad.GetState(PlayerIndex.One);
             KeyboardState newState = Keyboard.GetState();
             _mouseState = Mouse.GetState();
             _mousePosition = new Point(_mouseState.X, _mouseState.Y);

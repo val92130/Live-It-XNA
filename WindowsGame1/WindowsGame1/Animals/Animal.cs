@@ -476,7 +476,7 @@ namespace WindowsGame1
                 (int)(this.Area.Y / (this.Area.Width / ((this.Area.Width / (double)viewPort.Width) * target.Width)))
                 - (int)(viewPort.Y / (this.Area.Width / ((this.Area.Width / (double)viewPort.Width) * target.Width)));
 
-            this.RelativePosition = new Point( newXpos, newYpos );
+            this.RelativePosition = new Point(newXpos + target.X, newYpos + target.Y);
             this.RelativeSize = new Rectangle(0,0, newWidth, newHeight );
 
 
@@ -486,16 +486,16 @@ namespace WindowsGame1
                 switch (this.EMovingDirection)
                 {
                     case WindowsGame1.EMovingDirection.Left:
-                        spriteBatch.Draw( _spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationLeft.SourceRect, Color.White );
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationLeft.SourceRect, Color.White);
                         break;
                     case WindowsGame1.EMovingDirection.Right:
-                        spriteBatch.Draw(_spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationRight.SourceRect, Color.White);
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationRight.SourceRect, Color.White);
                         break;
                     case WindowsGame1.EMovingDirection.Up:
-                        spriteBatch.Draw(_spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationUp.SourceRect, Color.White);
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationUp.SourceRect, Color.White);
                         break;
                     case WindowsGame1.EMovingDirection.Down:
-                        spriteBatch.Draw(_spriteSheet, new Rectangle(newXpos, newYpos, newWidth, newHeight), _animationDown.SourceRect, Color.White);
+                        spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationDown.SourceRect, Color.White);
                         break;
                 }
             }

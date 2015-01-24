@@ -8,8 +8,9 @@ using System.Text;
 
 namespace WindowsGame1
 {
-    public class GameVariables
+    public class GameVariables : Microsoft.Xna.Framework.Game
     {
+
         #region Camera
         public static int ZoomValue
         {
@@ -112,8 +113,22 @@ namespace WindowsGame1
             {
                 return (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.03);
             }
+
+        }
+        public static int ButtonWidth {
+            get
+            {
+                return (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width * 0.08);
+            }
         }
         public static int ButtonMarginLeft
+        {
+            get
+            {
+                return (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width * 0.01);
+            }
+        }
+        public static int ButtonMarginRight
         {
             get
             {
@@ -148,6 +163,13 @@ namespace WindowsGame1
                 return 5;
             }
         }
+        public static Color DefaultBorderColor
+        {
+            get
+            {
+                return Color.WhiteSmoke;
+            }
+        }
         public static int ButtonMarginTop
         {
             get
@@ -156,6 +178,9 @@ namespace WindowsGame1
             }
         }
 
+
         #endregion
+
+        
     }
 }

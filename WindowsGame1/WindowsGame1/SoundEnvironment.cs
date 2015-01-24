@@ -12,6 +12,8 @@ namespace WindowsGame1
         SoundEffect _backGroundSound;
         SoundEffect _waterSound;
         SoundEffectInstance _waterSoundLoop;
+        SoundEffect _windSound;
+        SoundEffectInstance _windSoundLoop;
         MainGame _game;
         SoundEffectInstance _backGroundLoop;
         bool _waterVisible;
@@ -26,12 +28,21 @@ namespace WindowsGame1
             _waterSound = _game.Content.Load<SoundEffect>("Sounds/river");
             _waterSoundLoop = _waterSound.CreateInstance();
             _waterSoundLoop.IsLooped = true;
+
+            _windSound = _game.Content.Load<SoundEffect>("Sounds/wind");
+            _windSoundLoop = _windSound.CreateInstance();
+            _windSoundLoop.Play();
+
             _backGroundLoop.Play();
         }
 
         public void Update()
         {
             float t = 1f - (1f / (float)_game.MapSize) * _game.Camera.ViewPort.Width;
+            float windVolume = (1f / (float)_game.MapSize) * _game.Camera.ViewPort.Width;
+
+            _windSoundLoop.Volume = windVolume;
+
             _backGroundLoop.Volume = t;
             _waterSoundLoop.Volume = t;
             _visibleBoxes = _game.Camera.BoxList;

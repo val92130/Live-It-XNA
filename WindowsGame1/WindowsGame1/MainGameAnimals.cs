@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using WindowsGame1.Animals;
+using WindowsGame1.MapElements;
 
 namespace WindowsGame1
 {
@@ -26,12 +27,12 @@ namespace WindowsGame1
         public void CreateAnimal( EAnimalTexture eAnimalType, Point StartPosition )
         {
             Animal a;
-            switch( eAnimalType.ToString() )
+            switch( eAnimalType )
             {
-                case "Cat":
+                case EAnimalTexture.Cat:
                     a = new Cat( this, StartPosition );
                     break;
-                case "Dog":
+                case EAnimalTexture.Dog:
                     a = new Dog(this, StartPosition);
                     break;
                 default:
@@ -40,5 +41,6 @@ namespace WindowsGame1
 
             this.Animals.Add( a );
         }
+
     }
 }

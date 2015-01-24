@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1.Enums;
 using WindowsGame1.Texturing;
 
 namespace WindowsGame1
@@ -17,11 +18,17 @@ namespace WindowsGame1
         Texture2D _textureMountain;
         Texture2D _textureWater;
         Texture2D _textureDesert;
+        Texture2D _textureMetalButton;
 
         Texture2D _textureCat;
         Texture2D _textureDog;
 
-        SpriteAnimation _catAnimation;
+        Texture2D _textureTree;
+        Texture2D _textureTree2;
+        Texture2D _textureTree3;
+
+        Texture2D _textureRock;
+
 
         ContentManager _content;
         public GameTexture(MainGame Game, ContentManager Content)
@@ -35,8 +42,17 @@ namespace WindowsGame1
             _textureDesert = _content.Load<Texture2D>( "Textures/Desert" );
             _textureWater = _content.Load<Texture2D>( "Textures/Water" );
             _textureMountain = _content.Load<Texture2D>( "Textures/Mountain" );
+
             _textureCat = _content.Load<Texture2D>( "Animals/Cat" );
             _textureDog = _content.Load<Texture2D>("Animals/Dog");
+
+            _textureTree = _content.Load<Texture2D>("Textures/Vegetation/Tree");
+            _textureTree2 = _content.Load<Texture2D>("Textures/Vegetation/Tree2");
+            _textureTree3 = _content.Load<Texture2D>("Textures/Vegetation/Tree3");
+
+            _textureRock = _content.Load<Texture2D>("Textures/Vegetation/Rock");
+
+            _textureMetalButton = _content.Load<Texture2D>("Textures/GUI/Button-Metal");
         }
 
         public Texture2D GetTexture(Box b)
@@ -87,7 +103,25 @@ namespace WindowsGame1
                 case EBoxGround.Mountain:
                     return this._textureMountain;
                 case EBoxGround.Desert:
-                    return this._textureDesert; 
+                    return this._textureDesert;
+                case EBoxGround.Metal:
+                    return this._textureMetalButton; 
+                default:
+                    throw new ArgumentException("Unknown texture type");
+            }
+        }
+        public Texture2D GetTexture(EmapElements e)
+        {
+            switch (e)
+            {
+                case EmapElements.Tree:
+                    return this._textureTree;
+                case EmapElements.Tree2:
+                    return this._textureTree2;
+                case EmapElements.Tree3:
+                    return this._textureTree3;
+                case EmapElements.Rock:
+                    return this._textureRock;
                 default:
                     throw new ArgumentException("Unknown texture type");
             }

@@ -60,10 +60,12 @@ namespace WindowsGame1
             this.CreateTextureButton( "Mountain", EBoxGround.Mountain );
             this.CreateTextureButton( "Water", EBoxGround.Water );
             this.CreateTextureButton( "Desert", EBoxGround.Desert );
-            this.CreateActionButton( "Change", EBoxGround.Snow, EButtonAction.ChangeTexture );
-            this.CreateActionButton( "Add Cat", EBoxGround.Snow, EButtonAction.AddAnimal, EAnimalTexture.Cat );
-            this.CreateActionButton("Add Dog", EBoxGround.Snow, EButtonAction.AddAnimal, EAnimalTexture.Dog );
-            this.CreateActionButton( "Fill", EBoxGround.Snow, EButtonAction.FillTexture );
+            this.CreateActionButton("Change", EBoxGround.Metal, EButtonAction.ChangeTexture);
+            this.CreateActionButton("Add Cat", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Cat);
+            this.CreateActionButton("Add Dog", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Dog );
+            this.CreateActionButton("Add Tree", EBoxGround.Metal, EButtonAction.AddTree);
+            this.CreateActionButton("Add Rock", EBoxGround.Metal, EButtonAction.AddRock);
+            this.CreateActionButton("Fill", EBoxGround.Metal, EButtonAction.FillTexture);
 
         }
 
@@ -120,6 +122,14 @@ namespace WindowsGame1
             internal set
             {
                 _camera = value;
+            }
+        }
+
+        public GraphicsDevice Graphics
+        {
+            get
+            {
+                return _graphics;
             }
         }
         public List<Button> ButtonsTextures
@@ -186,6 +196,21 @@ namespace WindowsGame1
             }
 
             return boxList;
+        }
+
+        public int ScreenWidth
+        {
+            get
+            {
+                return _graphics.Viewport.Width;
+            }
+        }
+        public int ScreenHeight
+        {
+            get
+            {
+                return Graphics.Viewport.Width;
+            }
         }
 
     }
