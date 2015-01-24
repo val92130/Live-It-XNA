@@ -36,7 +36,6 @@ namespace WindowsGame1
             _gameTexture = new GameTexture(this, _content);
             _buttonsTextures = new List<Button>();
             _buttonsActions = new List<Button>();
-            _camera = new Camera(this, _spriteBatch, _graphics);
             CreateButtons();
 
             this._boxCountPerLine = boxCountPerLine;
@@ -50,8 +49,15 @@ namespace WindowsGame1
                     this._boxes[count++] = new Box(i,j, this);
                 }
             }
+            _camera = new Camera(this, _spriteBatch, _graphics);
         }
-
+        public int BoxCountPerLine
+        {
+            get
+            {
+                return _boxCountPerLine;
+            }
+        }
         private void CreateButtons()
         {
             this.CreateTextureButton( "Snow", EBoxGround.Snow );

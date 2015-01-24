@@ -27,7 +27,7 @@ namespace WindowsGame1
             _graphics = Graphics;
             _spriteBatch = spriteBatch;
             this._miniMap = GameVariables.DefaultMiniMap;
-            this._miniMapViewPort = new Rectangle(0, 0, 10000, 10000);
+            this._miniMapViewPort = new Rectangle(0, 0, _game.MapSize, _game.MapSize);
             _boxList = new List<Box>();
             _screen = new Rectangle(0, 0, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
             this._viewPort = new Rectangle(GameVariables.DefaultViewPortPosition.X, GameVariables.DefaultViewPortPosition.Y, GameVariables.DefaultViewPortSize, GameVariables.DefaultViewPortSize);
@@ -50,6 +50,13 @@ namespace WindowsGame1
                 m.Draw(_graphics, _spriteBatch, _screen, _viewPort);
             }
 
+            DrawMiniMapElements(gameTime);
+
+
+        }
+
+        private void DrawMiniMapElements(Microsoft.Xna.Framework.GameTime gameTime)
+        {
             _spriteBatch.Draw(_game.GameTexture.GetTexture(EBoxGround.Grass), new Rectangle(_miniMap.X, _miniMap.Y - 5, _miniMap.Width + 5, _miniMap.Height + 5), GameVariables.BorderColor);
 
             for (int i = 0; i < this._miniMapBoxes.Count; i++)
@@ -65,8 +72,6 @@ namespace WindowsGame1
                 a.Draw(_graphics, _spriteBatch, _miniMap, _miniMapViewPort, gameTime);
             }
             this.DrawViewPortMiniMap(_game.GameTexture.GetTexture(EBoxGround.Grass), _graphics, _spriteBatch, _viewPort, _miniMap, _miniMapViewPort);
-
-
         }
 
 
@@ -97,10 +102,12 @@ namespace WindowsGame1
         public void MoveViewPortX(int centimeters)
         {
             _viewPort.X += centimeters;
+            AdjustViewPort();
         }
         public void MoveViewPortY(int centimeters)
         {
             _viewPort.Y += centimeters;
+            AdjustViewPort();
         }
         private void AdjustViewPort()
         {

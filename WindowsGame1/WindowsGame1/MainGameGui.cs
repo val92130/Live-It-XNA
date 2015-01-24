@@ -68,10 +68,6 @@ namespace WindowsGame1
             {
                 b.Update();
             }
-            foreach (Animal a in this.Animals)
-            {
-                a.Update(gameTime);
-            }
         }
         private void DrawButtons()
         {

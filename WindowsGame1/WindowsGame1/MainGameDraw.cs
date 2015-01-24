@@ -32,9 +32,13 @@ namespace WindowsGame1
 
             UpdateGUI(gameTime);
 
-            foreach (Box b in this.Boxes)
+            //foreach (Box b in this.Boxes)
+            //{
+            //    b.Update();
+            //}
+            foreach (Animal a in this.Animals)
             {
-                b.Update();
+                a.Update(gameTime);
             }
         }
 

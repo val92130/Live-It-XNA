@@ -458,15 +458,6 @@ namespace WindowsGame1
         public virtual void Draw( GraphicsDevice Graphics, SpriteBatch spriteBatch, Rectangle target, Rectangle viewPort, GameTime gameTime )
         {
 
-            if( _graphics == null )
-            {
-                this._graphics = Graphics;
-            }
-            if( _spriteBatch == null )
-            {
-                _spriteBatch = spriteBatch;
-            }
-
             var newWidth = (int)((this.Area.Width / (double)viewPort.Width) * target.Width + 1);
             var newHeight = (int)((this.Area.Height / (double)viewPort.Width) * target.Width + 1);
             int newXpos =

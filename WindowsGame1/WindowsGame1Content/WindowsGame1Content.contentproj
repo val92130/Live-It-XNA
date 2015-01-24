@@ -30,14 +30,6 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Grass.jpg">
-      <Name>Grass</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\Snow.jpg">
       <Name>Snow</Name>
       <Importer>TextureImporter</Importer>
@@ -157,6 +149,13 @@
   <ItemGroup>
     <Compile Include="Textures\Vegetation\Rock.png">
       <Name>Rock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Grass.jpg">
+      <Name>Grass</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
