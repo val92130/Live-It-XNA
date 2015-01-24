@@ -199,7 +199,7 @@ namespace WindowsGame1
             }
             else
             {
-                spriteBatch.Draw(_game.GameTexture.GetTexture(this), this.RelativeArea, _color);
+                spriteBatch.Draw(_game.GameTexture.GetTexture(this.Ground), this.RelativeArea, _color);
             }
 
         }
@@ -234,7 +234,7 @@ namespace WindowsGame1
                 - (int)
                   (viewPort.Y / (this._game.BoxSize / ((this.Source.Width / (double)viewPort.Width) * target.Width)));
 
-            spriteBatch.Draw(_game.GameTexture.GetTexture(this), new Rectangle(newXpos + target.X, newYpos + target.Y, newSize, newSize), _color);
+            spriteBatch.Draw(_game.GameTexture.GetTexture(this.Ground, true), new Rectangle(newXpos + target.X, newYpos + target.Y, newSize, newSize), _color);
         }
     }
 }

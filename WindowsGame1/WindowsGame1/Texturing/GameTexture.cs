@@ -12,12 +12,12 @@ namespace WindowsGame1
     public class GameTexture
     {
         MainGame _game;
-        Texture2D _textureGrass;
-        Texture2D _textureSnow;
-        Texture2D _textureDirt;
-        Texture2D _textureMountain;
-        Texture2D _textureWater;
-        Texture2D _textureDesert;
+        Texture2D _textureGrass, _textureGrassLow;
+        Texture2D _textureSnow, _textureSnowLow;
+        Texture2D _textureDirt, _textureDirtLow;
+        Texture2D _textureMountain, _textureMountainLow;
+        Texture2D _textureWater, _textureWaterLow;
+        Texture2D _textureDesert, _textureDesertLow;
         Texture2D _textureMetalButton;
 
         Texture2D _textureCat;
@@ -37,11 +37,17 @@ namespace WindowsGame1
             _content = Content;
 
             _textureGrass = _content.Load<Texture2D>("Textures/Grass");
+            _textureGrassLow = _content.Load<Texture2D>("Textures/LowRes/Grass");
             _textureDirt = _content.Load<Texture2D>( "Textures/Dirt" );
+            _textureDirtLow = _content.Load<Texture2D>("Textures/LowRes/Dirt");
             _textureSnow = _content.Load<Texture2D>( "Textures/Snow" );
+            _textureSnowLow = _content.Load<Texture2D>("Textures/LowRes/Snow");
             _textureDesert = _content.Load<Texture2D>( "Textures/Desert" );
+            _textureDesertLow = _content.Load<Texture2D>("Textures/LowRes/Desert");
             _textureWater = _content.Load<Texture2D>( "Textures/Water" );
+            _textureWaterLow = _content.Load<Texture2D>("Textures/LowRes/Water");
             _textureMountain = _content.Load<Texture2D>( "Textures/Mountain" );
+            _textureMountainLow = _content.Load<Texture2D>("Textures/LowRes/Mountain");
 
             _textureCat = _content.Load<Texture2D>( "Animals/Cat" );
             _textureDog = _content.Load<Texture2D>("Animals/Dog");
@@ -110,6 +116,26 @@ namespace WindowsGame1
                     throw new ArgumentException("Unknown texture type");
             }
         }
+        public Texture2D GetTexture(EBoxGround Ground, bool LowRes)
+        {
+            switch (Ground)
+            {
+                case EBoxGround.Grass:
+                    return this._textureGrassLow;
+                case EBoxGround.Snow:
+                    return this._textureSnowLow;
+                case EBoxGround.Dirt:
+                    return this._textureDirtLow;
+                case EBoxGround.Water:
+                    return this._textureWaterLow;
+                case EBoxGround.Mountain:
+                    return this._textureMountainLow;
+                case EBoxGround.Desert:
+                    return this._textureDesertLow;
+                default:
+                    throw new ArgumentException("Unknown texture type");
+            }
+        }
         public Texture2D GetTexture(EmapElements e)
         {
             switch (e)
@@ -126,5 +152,6 @@ namespace WindowsGame1
                     throw new ArgumentException("Unknown texture type");
             }
         }
+
     }
 }
