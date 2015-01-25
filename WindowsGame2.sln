@@ -5,7 +5,9 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGame1", "WindowsGame1\WindowsGame1\WindowsGame1.csproj", "{4980E044-CEA8-4DD2-A2DD-A2C6CF95F918}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "WindowsGame1Content", "WindowsGame1\WindowsGame1Content\WindowsGame1Content.contentproj", "{D9DCB93B-3723-49F2-A380-040D64D120EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGame1Content", "WindowsGame1\WindowsGame1Content\WindowsGame1Content.contentproj", "{D9DCB93B-3723-49F2-A380-040D64D120EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveItLibrary", "LiveItLibrary\LiveItLibrary.csproj", "{1CF6F708-4CCD-48C7-BB71-7A155454B54B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{4980E044-CEA8-4DD2-A2DD-A2C6CF95F918}.Release|x86.Build.0 = Release|x86
 		{D9DCB93B-3723-49F2-A380-040D64D120EF}.Debug|x86.ActiveCfg = Debug|x86
 		{D9DCB93B-3723-49F2-A380-040D64D120EF}.Release|x86.ActiveCfg = Release|x86
+		{1CF6F708-4CCD-48C7-BB71-7A155454B54B}.Debug|x86.ActiveCfg = Debug|x86
+		{1CF6F708-4CCD-48C7-BB71-7A155454B54B}.Debug|x86.Build.0 = Debug|x86
+		{1CF6F708-4CCD-48C7-BB71-7A155454B54B}.Release|x86.ActiveCfg = Release|x86
+		{1CF6F708-4CCD-48C7-BB71-7A155454B54B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,7 +22,7 @@ namespace WindowsGame1
                 _gameTime = gameTime;
                 Camera.Draw(_gameTime);
                 DrawButtons();
-                PlayIntro(spriteBatch);
+               PlayIntro(spriteBatch);
         }
 
         private void PlayIntro(SpriteBatch spriteBatch)
