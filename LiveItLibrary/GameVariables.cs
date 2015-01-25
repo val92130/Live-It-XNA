@@ -57,6 +57,15 @@ namespace WindowsGame1
                 return r;
             }
         }
+
+        public static bool DrawFog
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         #endregion
 
         #region Controls

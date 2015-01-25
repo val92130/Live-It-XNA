@@ -50,9 +50,22 @@ namespace WindowsGame1
                 m.Draw(_graphics, _spriteBatch, _screen, _viewPort);
             }
 
+            DrawFog();
+
             DrawMiniMapElements(gameTime);
 
 
+        }
+
+        private void DrawFog()
+        {
+            if (GameVariables.DrawFog)
+            {
+                if (_viewPort.Width > _game.MapSize * 0.7)
+                {
+                    _spriteBatch.Draw(_game.GameTexture.GetTexture(EBoxGround.Fog), _screen, Color.White * ((1f / (float)(_game.MapSize * 3)) * _viewPort.Width));
+                }
+            }
         }
 
         private void DrawMiniMapElements(Microsoft.Xna.Framework.GameTime gameTime)

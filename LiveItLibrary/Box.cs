@@ -195,7 +195,8 @@ namespace WindowsGame1
             this._relativeSize.Width = newSize;
             if (this.Ground == EBoxGround.Water)
             {
-                spriteBatch.Draw(_animationWater, new Rectangle(newXpos, newYpos, newSize, newSize), _animation.SourceRect, Color.White);
+                spriteBatch.Draw(_game.GameTexture.GetTexture(EBoxGround.Grass), new Rectangle(newXpos, newYpos, newSize, newSize), _animation.SourceRect, Color.White * 0.6f);
+                spriteBatch.Draw(_animationWater, new Rectangle(newXpos, newYpos, newSize, newSize), _animation.SourceRect, Color.White * 0.7f);
             }
             else
             {
@@ -234,7 +235,7 @@ namespace WindowsGame1
                 - (int)
                   (viewPort.Y / (this._game.BoxSize / ((this.Source.Width / (double)viewPort.Width) * target.Width)));
 
-            spriteBatch.Draw(_game.GameTexture.GetTexture(this.Ground, true), new Rectangle(newXpos + target.X, newYpos + target.Y, newSize, newSize), _color);
+            spriteBatch.Draw(_game.GameTexture.GetTexture(this.Ground, true), new Rectangle(newXpos + target.X, newYpos + target.Y, newSize, newSize), _color );
         }
     }
 }

@@ -20,6 +20,7 @@ namespace WindowsGame1
         Floor2,
         Wall,
         Exit,
-        Metal
+        Metal,
+        Fog
     }
 }

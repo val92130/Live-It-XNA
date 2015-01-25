@@ -29,6 +29,7 @@ namespace WindowsGame1
 
         Texture2D _textureRock;
 
+        Texture2D _textureFog;
 
         ContentManager _content;
         public GameTexture(MainGame Game, ContentManager Content)
@@ -59,6 +60,8 @@ namespace WindowsGame1
             _textureRock = _content.Load<Texture2D>("Textures/Vegetation/Rock");
 
             _textureMetalButton = _content.Load<Texture2D>("Textures/GUI/Button-Metal");
+
+            _textureFog = _content.Load<Texture2D>("Textures/Misc/Fog");
         }
 
         public Texture2D GetTexture(Box b)
@@ -111,7 +114,9 @@ namespace WindowsGame1
                 case EBoxGround.Desert:
                     return this._textureDesert;
                 case EBoxGround.Metal:
-                    return this._textureMetalButton; 
+                    return this._textureMetalButton;
+                case EBoxGround.Fog:
+                    return this._textureFog; 
                 default:
                     throw new ArgumentException("Unknown texture type");
             }
@@ -152,6 +157,7 @@ namespace WindowsGame1
                     throw new ArgumentException("Unknown texture type");
             }
         }
+
 
     }
 }
