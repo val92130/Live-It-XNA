@@ -19,13 +19,13 @@ namespace WindowsGame1
         protected GraphicsDeviceManager graphics;
         protected SpriteBatch spriteBatch;
         protected MainGame _game;
-        
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferMultiSampling = true;
-            this.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            this.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            this.graphics.PreferredBackBufferWidth = 1920;
+            this.graphics.PreferredBackBufferHeight = 1080;
             this.graphics.IsFullScreen = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";            
@@ -56,7 +56,6 @@ namespace WindowsGame1
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _game = new MainGame(50,2, this.Content, spriteBatch, GraphicsDevice);           
             _game.LoadContent();
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -78,7 +77,8 @@ namespace WindowsGame1
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            _game.Update(gameTime);
+                _game.Update(gameTime);
+            
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -90,11 +90,12 @@ namespace WindowsGame1
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here   
             base.Draw(gameTime);
             spriteBatch.Begin();
-            _game.Draw(GraphicsDevice,spriteBatch, gameTime);
+
+            _game.Draw(GraphicsDevice, spriteBatch, gameTime);
+
             spriteBatch.End();
         }
     }

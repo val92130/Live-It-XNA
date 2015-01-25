@@ -18,22 +18,28 @@ namespace WindowsGame1
         SoundEffectInstance _backGroundLoop;
         bool _waterVisible;
         List<Box> _visibleBoxes;
+
+        List<SoundEffectInstance> _allSounds = new List<SoundEffectInstance>();
         public SoundEnvironment(MainGame Game)
         {
             _game = Game;
             _backGroundSound = _game.Content.Load<SoundEffect>("Sounds/background");
             _backGroundLoop = _backGroundSound.CreateInstance();
+            _allSounds.Add(_backGroundLoop);
+
             _backGroundLoop.IsLooped = true;
 
             _waterSound = _game.Content.Load<SoundEffect>("Sounds/river");
             _waterSoundLoop = _waterSound.CreateInstance();
             _waterSoundLoop.IsLooped = true;
+            _allSounds.Add(_waterSoundLoop);
 
             _windSound = _game.Content.Load<SoundEffect>("Sounds/wind");
             _windSoundLoop = _windSound.CreateInstance();
-            _windSoundLoop.Play();
+            _windSoundLoop.IsLooped = true;
 
-            _backGroundLoop.Play();
+            _allSounds.Add(_windSoundLoop);
+
         }
 
         public void Update()
@@ -73,6 +79,48 @@ namespace WindowsGame1
                 if (_waterSoundLoop.State == SoundState.Playing)
                 {
                     _waterSoundLoop.Pause();
+                }
+            }
+        }
+
+        public void StopAllSounds()
+        {
+            foreach (SoundEffectInstance s in this._allSounds)
+            {
+                if (s.State == SoundState.Playing)
+                {
+                    s.Stop();
+                }
+            }
+        }
+
+        public void Mute()
+        {
+            foreach (SoundEffectInstance s in this._allSounds)
+            {
+                if (s.State == SoundState.Playing)
+                {
+                    s.Volume = 0;
+                }
+            }
+        }
+        public void UnMute()
+        {
+            foreach (SoundEffectInstance s in this._allSounds)
+            {
+                if (s.State == SoundState.Playing)
+                {
+                    s.Volume = 1;
+                }
+            }
+        }
+        public void PlayAllSounds()
+        {
+            foreach (SoundEffectInstance s in this._allSounds)
+            {
+                if (s.State == SoundState.Stopped || s.State == SoundState.Paused)
+                {
+                    s.Play();
                 }
             }
         }

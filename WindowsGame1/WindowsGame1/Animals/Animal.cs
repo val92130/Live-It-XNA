@@ -491,7 +491,6 @@ namespace WindowsGame1
                 }
             }
 
-
         }
 
         public void Update(GameTime gameTime)
