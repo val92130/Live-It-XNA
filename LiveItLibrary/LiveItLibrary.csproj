@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Animals\Animal.cs" />
     <Compile Include="Animals\Cat.cs" />
+    <Compile Include="Animals\Cow.cs" />
     <Compile Include="Animals\Dog.cs" />
     <Compile Include="Animals\Eagle.cs" />
     <Compile Include="Box.cs" />
