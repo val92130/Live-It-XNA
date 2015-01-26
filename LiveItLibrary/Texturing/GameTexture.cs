@@ -177,7 +177,7 @@ namespace WindowsGame1
             switch( e )
             {
                 case EPlayerTexture.MainPlayer:
-                    return this._textureTree;
+                    return this._textureCat;
                 default:
                     throw new ArgumentException( "Unknown texture type" );
             }

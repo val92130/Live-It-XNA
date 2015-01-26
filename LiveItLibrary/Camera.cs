@@ -54,6 +54,11 @@ namespace WindowsGame1
 
             DrawMiniMapElements(gameTime);
 
+            if( _game.IsPlayer )
+            {
+                _game.Player.Draw( _graphics, _spriteBatch, _screen, _viewPort, gameTime );
+            }
+
 
         }
 

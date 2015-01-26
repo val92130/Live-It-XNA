@@ -163,6 +163,16 @@ namespace WindowsGame1
                             }
                         }
                         break;
+                    case EButtonAction.FreeMode:
+                        if( _game.IsPlayer)
+                        {
+                            _game.IsPlayer = false;
+                        }
+                        else
+                        {
+                            _game.IsPlayer = true;
+                        }
+                        break;
                     case EButtonAction.AddAnimal:
                         foreach (Box b in _game.Camera.BoxList)
                         {

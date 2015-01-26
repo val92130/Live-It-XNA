@@ -6,7 +6,7 @@
 //   The player.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace WindowsGame1.Player
+namespace WindowsGame1
 {
     using System;
     using System.Collections.Generic;
@@ -285,6 +285,7 @@ namespace WindowsGame1.Player
                 this._position.X + (int)(this.Direction.X * this.Speed),
                 this._position.Y + (int)(this.Direction.Y * this.Speed) );
 
+            BoxList = _game.GetOverlappedBoxes( this.Area );
 
             if( this.Area.Intersects( viewPort ) )
             {
