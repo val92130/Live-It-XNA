@@ -98,7 +98,15 @@ namespace WindowsGame1
         {
             _boxList = _game.GetOverlappedBoxes(_viewPort);
             _miniMapBoxes = _game.GetOverlappedBoxes(_miniMapViewPort);
-            AdjustViewPort();
+            if( !_game.IsPlayer )
+            {
+                AdjustViewPort();
+            }
+            else
+            {
+                AdjustViewPortToPlayer();
+            }
+            
         }
 
         public List<Box> BoxList
@@ -122,15 +130,6 @@ namespace WindowsGame1
             if( !_game.IsPlayer )
             {
                 _viewPort.X += centimeters;
-                AdjustViewPort();
-            }
-
-        }
-        public void MoveViewPortY(int centimeters)
-        {
-            if( !_game.IsPlayer )
-            {
-                _viewPort.Y += centimeters;
                 AdjustViewPort();
             }
             else
@@ -179,6 +178,60 @@ namespace WindowsGame1
             }
 
         }
+        public void MoveViewPortY(int centimeters)
+        {
+            if( !_game.IsPlayer )
+            {
+                _viewPort.Y += centimeters;
+                AdjustViewPort();
+            }
+            else
+            {
+                if( this._game.IsPlayer && this._game.IsInCar == false )
+                {
+                    if( centimeters <= 0 )
+                    {
+                        this._game.Player.EMovingDirection = EMovingDirection.Down;
+                        if( this._game.Player.DownCollide == false )
+                        {
+                            this._game.Player.Position = new Point( this._game.Player.Position.X, this._game.Player.Position.Y - this._game.Player.Speed );
+                        }
+
+                    }
+                    else
+                    {
+                        this._game.Player.EMovingDirection = EMovingDirection.Up;
+                        if( this._game.Player.UpCollide == false )
+                        {
+                            this._game.Player.Position = new Point( this._game.Player.Position.X, this._game.Player.Position.Y + this._game.Player.Speed );
+                        }
+
+                    }
+                    AdjustViewPortToPlayer();
+                }
+                else if( this._game.IsPlayer && this._game.IsInCar )
+                {
+                    if( centimeters > 0 )
+                    {
+                        this._game.Player.Car.EMovingDirection = EMovingDirection.Right;
+                        this._game.Player.Car.Position = new Point(
+                        this._game.Player.Car.Position.X + this._game.Player.Car.Speed,
+                        this._game.Player.Car.Position.Y );
+                    }
+                    else
+                    {
+                        this._game.Player.Car.EMovingDirection = EMovingDirection.Left;
+                        this._game.Player.Car.Position = new Point(
+                        this._game.Player.Car.Position.X - this._game.Player.Car.Speed,
+                        this._game.Player.Car.Position.Y );
+                    }
+
+                    AdjustViewPortToPlayer();
+                }
+            }
+            
+
+        }
         private void AdjustViewPortToPlayer()
         {
             _viewPort.Width = this._screen.Width * 2;
@@ -211,19 +264,23 @@ namespace WindowsGame1
         }
         public void Zoom(int meters)
         {
-            this._viewPort.Width += meters;
-            this._viewPort.Height += meters;
-            if (this._viewPort.Width < GameVariables.MinViewPortSize || this._viewPort.Height < GameVariables.MinViewPortSize)
+            if( !_game.IsPlayer )
             {
-                this._viewPort.Width = GameVariables.MinViewPortSize;
-                this._viewPort.Height = GameVariables.MinViewPortSize;
+                this._viewPort.Width += meters;
+                this._viewPort.Height += meters;
+                if( this._viewPort.Width < GameVariables.MinViewPortSize || this._viewPort.Height < GameVariables.MinViewPortSize )
+                {
+                    this._viewPort.Width = GameVariables.MinViewPortSize;
+                    this._viewPort.Height = GameVariables.MinViewPortSize;
+                }
+
+                if( this._viewPort.Width > this._game.MapSize )
+                {
+                    this._viewPort.Height = this._game.MapSize;
+                    this._viewPort.Width = this._game.MapSize;
+                }
             }
 
-            if (this._viewPort.Width > this._game.MapSize)
-            {
-                this._viewPort.Height = this._game.MapSize;
-                this._viewPort.Width = this._game.MapSize;
-            }
 
         }
 

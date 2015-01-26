@@ -76,7 +76,7 @@ namespace WindowsGame1
             this._position = startPosition;
             this._size = new Rectangle(0,0, 100, 210 );
             this.Texture = EPlayerTexture.MainPlayer;
-            this.Speed = 0;
+            this.Speed = 3;
             MaxSpeed = 30;
             this.Acceleration = 10;
             _collisionTextures = new List<EBoxGround>() { EBoxGround.Wall, EBoxGround.Water };
