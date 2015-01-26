@@ -31,6 +31,8 @@ namespace WindowsGame1
 
         Texture2D _textureFog;
 
+        Texture2D _playerTexture;
+
         ContentManager _content;
         public GameTexture(MainGame Game, ContentManager Content)
         {
@@ -155,6 +157,16 @@ namespace WindowsGame1
                     return this._textureRock;
                 default:
                     throw new ArgumentException("Unknown texture type");
+            }
+        }
+        public Texture2D GetTexture( EPlayerTexture e )
+        {
+            switch( e )
+            {
+                case EPlayerTexture.MainPlayer:
+                    return this._textureTree;
+                default:
+                    throw new ArgumentException( "Unknown texture type" );
             }
         }
 
