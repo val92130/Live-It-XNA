@@ -45,6 +45,11 @@ namespace WindowsGame1
                 a.Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
             }
 
+            if (_game.IsPlayer)
+            {
+                _game.Player.Draw(_graphics, _spriteBatch, _screen, _viewPort, gameTime);
+            }
+
             foreach (MapElement m in _game.MapElements)
             {
                 m.Draw(_graphics, _spriteBatch, _screen, _viewPort);
@@ -54,11 +59,27 @@ namespace WindowsGame1
 
             DrawMiniMapElements(gameTime);
 
-            if( _game.IsPlayer )
+
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            _boxList = _game.GetOverlappedBoxes(_viewPort);
+            _miniMapBoxes = _game.GetOverlappedBoxes(_miniMapViewPort);
+            if (!_game.IsPlayer)
             {
-                _game.Player.Draw( _graphics, _spriteBatch, _screen, _viewPort, gameTime );
+                AdjustViewPort();
+            }
+            else
+            {
+                AdjustViewPortToPlayer();
+                AdjustViewPort();
             }
 
+            if (_game.IsPlayer)
+            {
+                _game.Player.Update(gameTime);
+            }
 
         }
 
@@ -92,22 +113,6 @@ namespace WindowsGame1
             this.DrawViewPortMiniMap(_game.GameTexture.GetTexture(EBoxGround.Grass), _graphics, _spriteBatch, _viewPort, _miniMap, _miniMapViewPort);
         }
 
-
-
-        public void Update(GameTime gameTime)
-        {
-            _boxList = _game.GetOverlappedBoxes(_viewPort);
-            _miniMapBoxes = _game.GetOverlappedBoxes(_miniMapViewPort);
-            if( !_game.IsPlayer )
-            {
-                AdjustViewPort();
-            }
-            else
-            {
-                AdjustViewPortToPlayer();
-            }
-            
-        }
 
         public List<Box> BoxList
         {
@@ -175,6 +180,7 @@ namespace WindowsGame1
 
                     AdjustViewPortToPlayer();
                 }
+                AdjustViewPort();
             }
 
         }
@@ -191,7 +197,7 @@ namespace WindowsGame1
                 {
                     if( centimeters <= 0 )
                     {
-                        this._game.Player.EMovingDirection = EMovingDirection.Down;
+                        this._game.Player.EMovingDirection = EMovingDirection.Up;
                         if( this._game.Player.DownCollide == false )
                         {
                             this._game.Player.Position = new Point( this._game.Player.Position.X, this._game.Player.Position.Y - this._game.Player.Speed );
@@ -200,7 +206,7 @@ namespace WindowsGame1
                     }
                     else
                     {
-                        this._game.Player.EMovingDirection = EMovingDirection.Up;
+                        this._game.Player.EMovingDirection = EMovingDirection.Down;
                         if( this._game.Player.UpCollide == false )
                         {
                             this._game.Player.Position = new Point( this._game.Player.Position.X, this._game.Player.Position.Y + this._game.Player.Speed );
@@ -228,14 +234,15 @@ namespace WindowsGame1
 
                     AdjustViewPortToPlayer();
                 }
+                AdjustViewPort();
             }
             
 
         }
         private void AdjustViewPortToPlayer()
         {
-            _viewPort.Width = this._screen.Width * 2;
-            _viewPort.Height = this._screen.Height * 2;
+            _viewPort.Width = (int)(this._screen.Width * 1.5f);
+            _viewPort.Height = (int)(this._screen.Height * 1.5f);
             this._viewPort.X = this._game.Player.Area.X - (this._viewPort.Width / 2) + (this._game.Player.Area.Width / 2);
             this._viewPort.Y = this._game.Player.Area.Y - (this._viewPort.Height / 2)
                               + (this._game.Player.Area.Height / 2);

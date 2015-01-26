@@ -10,9 +10,6 @@ namespace WindowsGame1
 {
     using System;
     using System.Collections.Generic;
-
-
-    using LiveIT2._1.Enums;
     
     using WindowsGame1;
     using Microsoft.Xna.Framework;

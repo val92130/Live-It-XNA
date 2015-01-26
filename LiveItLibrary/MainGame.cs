@@ -42,7 +42,7 @@ namespace WindowsGame1
             _buttonsTextures = new List<Button>();
             _buttonsActions = new List<Button>();
             CreateButtons();
-            _player = new Player( this, new Point( 50, 50 ) );
+            _player = new Player( this, new Point( 2000, 5000 ) );
 
             this._boxCountPerLine = boxCountPerLine;
             this._boxes = new Box[boxCountPerLine * boxCountPerLine];

@@ -12,73 +12,60 @@ namespace WindowsGame1
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using WindowsGame1.Texturing;
 
 
     public class Player
     {
         #region Fields
 
-        /// <summary>
-        ///     The _direction.
-        /// </summary>
         private Vector2 _direction;
 
         bool leftCollide, rightCollide, upCollide, downCollide;
 
-        /// <summary>
-        ///     The _map.
-        /// </summary>
         private MainGame _game;
 
-        /// <summary>
-        ///     The _position.
-        /// </summary>
         private Point _position;
 
-        /// <summary>
-        ///     The _relative position.
-        /// </summary>
         private Point _relativePosition;
 
-        /// <summary>
-        ///     The _relative size.
-        /// </summary>
         private Rectangle _relativeSize;
 
         private bool _isInHouse;
 
         private Car _car;
 
-        /// <summary>
-        ///     The _size.
-        /// </summary>
         private Rectangle _size;
+
         private  int _acceleration;
 
         List<EBoxGround> _collisionTextures;
+
+        protected Texture2D _spriteSheet;
+        protected SpriteAnimation _animationLeft;
+        protected SpriteAnimation _animationRight;
+        protected SpriteAnimation _animationUp;
+        protected SpriteAnimation _animationDown;
 
         #endregion
 
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Player"/> class.
-        /// </summary>
-        /// <param name="map">
-        /// The map.
-        /// </param>
-        /// <param name="startPosition">
-        /// The start position.
-        /// </param>
         public Player( MainGame Game, Point startPosition )
         {
             this._game = Game;
             this._position = startPosition;
-            this._size = new Rectangle(0,0, 100, 210 );
+            this._size = new Rectangle(0,0, 200, 200 );
             this.Texture = EPlayerTexture.MainPlayer;
             this.Speed = 3;
             MaxSpeed = 30;
             this.Acceleration = 10;
+            _spriteSheet = Game.Content.Load<Texture2D>("Textures/Player/Player-SpriteSheet");
+            _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 70, 65, 0, 5);
+            _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 70, 65, 130, 5);
+            _animationLeft = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 70, 65, 70, 5);
+            _animationRight = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 70, 65, 200, 5);
+
             _collisionTextures = new List<EBoxGround>() { EBoxGround.Wall, EBoxGround.Water };
         }
 
@@ -86,9 +73,6 @@ namespace WindowsGame1
 
         #region Public Properties
 
-        /// <summary>
-        ///     Gets the area.
-        /// </summary>
         public Rectangle Area
         {
             get
@@ -143,6 +127,14 @@ namespace WindowsGame1
             {
                 return new Rectangle(
                     this._position.X, this._position.Y + (this._size.Height / 3), this._size.Width, this._size.Height / 3);
+            }
+        }
+
+        public Rectangle RelativeArea
+        {
+            get
+            {
+                return new Rectangle(this.RelativePosition.X, this.RelativePosition.Y, this.RelativeSize.Width, this.RelativeSize.Height);
             }
         }
 
@@ -292,18 +284,31 @@ namespace WindowsGame1
                 (int)(this.Area.Y / (this.Area.Width / ((this.Area.Width / (double)viewPort.Width) * target.Width)))
                 - (int)(viewPort.Y / (this.Area.Width / ((this.Area.Width / (double)viewPort.Width) * target.Width)));
 
-            this.RelativePosition = new Point( newXpos, newYpos );
+            this.RelativePosition = new Point(newXpos + target.X, newYpos + target.Y);
             this.RelativeSize = new Rectangle(0,0, newWidth, newHeight );
 
             this.Position = new Point(
-                this._position.X + (int)(this.Direction.X * this.Speed),
-                this._position.Y + (int)(this.Direction.Y * this.Speed) );
+                this._position.X + (int)(this.Direction.X * this.Speed * gameTime.ElapsedGameTime.TotalSeconds),
+                this._position.Y + (int)(this.Direction.Y * this.Speed * gameTime.ElapsedGameTime.TotalSeconds));
 
             BoxList = _game.GetOverlappedBoxes( this.Area );
-
-            if( this.Area.Intersects( viewPort ) )
+            switch (this.EMovingDirection)
             {
-                spriteBatch.Draw( _game.GameTexture.GetTexture( this.Texture ), new Rectangle( newXpos + target.X, newYpos + target.Y, newWidth, newHeight ), Color.White );
+                case WindowsGame1.EMovingDirection.Left:
+                    spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationLeft.SourceRect, Color.White);
+                    break;
+                case WindowsGame1.EMovingDirection.Right:
+                    spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationRight.SourceRect, Color.White);
+                    break;
+                case WindowsGame1.EMovingDirection.Up:
+                    spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationUp.SourceRect, Color.White);
+                    break;
+                case WindowsGame1.EMovingDirection.Down:
+                    spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationDown.SourceRect, Color.White);
+                    break;
+                default :
+                    spriteBatch.Draw(_spriteSheet, new Rectangle(RelativePosition.X, RelativePosition.Y, newWidth, newHeight), _animationUp.SourceRect, Color.White);
+                    break;
             }
             rightCollide = false;
             upCollide = false;
@@ -368,6 +373,24 @@ namespace WindowsGame1
 
             spriteBatch.Draw( _game.GameTexture.GetTexture( this.Texture ), new Rectangle( newXposMini + targetMiniMap.X, newXposMini + targetMiniMap.Y, newSizeMini, newHeightMini ), Color.White );
 
+        }
+        public void Update(GameTime gameTime)
+        {
+            switch (this.EMovingDirection)
+            {
+                case WindowsGame1.EMovingDirection.Left:
+                    _animationLeft.Update(gameTime);
+                    break;
+                case WindowsGame1.EMovingDirection.Right:
+                    _animationRight.Update(gameTime);
+                    break;
+                case WindowsGame1.EMovingDirection.Up:
+                    _animationUp.Update(gameTime);
+                    break;
+                case WindowsGame1.EMovingDirection.Down:
+                    _animationDown.Update(gameTime);
+                    break;
+            }
         }
 
 

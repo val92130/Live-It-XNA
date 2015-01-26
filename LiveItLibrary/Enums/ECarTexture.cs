@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace LiveIT2._1.Enums
+namespace WindowsGame1
 {
     /// <summary>
     /// The e car texture.

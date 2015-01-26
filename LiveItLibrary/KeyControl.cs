@@ -131,6 +131,18 @@ namespace WindowsGame1
                     {
                         _game.SelectedAnimal = b.SelectedAnimal;
                     }
+                    if (b.Action == EButtonAction.FreeMode)
+                    {
+                        if (_game.IsPlayer)
+                        {
+                            _game.IsPlayer = false;
+                            b.Active = false;
+                        }
+                        else
+                        {
+                            _game.IsPlayer = true;
+                        }
+                    }
                 }
             }
 
@@ -161,16 +173,6 @@ namespace WindowsGame1
                             {
                                 _game.FillBox(b, b.Ground, _game.SelectedTexture);
                             }
-                        }
-                        break;
-                    case EButtonAction.FreeMode:
-                        if( _game.IsPlayer)
-                        {
-                            _game.IsPlayer = false;
-                        }
-                        else
-                        {
-                            _game.IsPlayer = true;
                         }
                         break;
                     case EButtonAction.AddAnimal:
