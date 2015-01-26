@@ -31,10 +31,10 @@ namespace WindowsGame1.Animals
             this.DefaultSpeed = this.Speed;
             this.ViewDistance = 400;
             _spriteSheet = Game.Content.Load<Texture2D>("Animals/Animations/Lion-SpriteSheet");
-            _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 120, 4);
-            _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 0, 4);
-            _animationLeft = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 40, 4);
-            _animationRight = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 38, 40, 40, 80, 4);
+            _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 80, 80, 80, 240, 3);
+            _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 80, 80, 80, 0, 3);
+            _animationLeft = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 80, 80, 80, 80, 3);
+            _animationRight = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 80, 80, 80, 160, 3);
             this.TargetAnimals = new List<EAnimalTexture> { EAnimalTexture.Rabbit, EAnimalTexture.Cow, EAnimalTexture.Cat };
         }
 

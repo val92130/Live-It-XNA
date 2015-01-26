@@ -41,6 +41,12 @@ namespace WindowsGame1
                 case EAnimalTexture.Eagle:
                     a = new Eagle(this, StartPosition);
                     break;
+                case EAnimalTexture.Lion:
+                    a = new Lion(this, StartPosition);
+                    break;
+                case EAnimalTexture.Rabbit:
+                    a = new Rabbit(this, StartPosition);
+                    break;
                 default:
                     throw new NotSupportedException( "Unknown animal type" );
             }
