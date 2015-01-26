@@ -1,9 +1,11 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using LiveIT2._1.Enums;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1.Animals;
 using WindowsGame1.Enums;
 using WindowsGame1.Texturing;
 
@@ -32,6 +34,7 @@ namespace WindowsGame1
         Texture2D _textureFog;
 
         Texture2D _playerTexture;
+        Texture2D _mainPlayerCar;
 
         ContentManager _content;
         public GameTexture(MainGame Game, ContentManager Content)
@@ -96,6 +99,16 @@ namespace WindowsGame1
                     return this._textureDog;
                 default:
                     throw new ArgumentException( "Unknown texture type" );
+            }
+        }
+        public Texture2D GetTexture(Car c)
+        {
+            switch (c.Texture)
+            {
+                case ECarTexture.MainPlayerCar:
+                    return this._mainPlayerCar;
+                default:
+                    throw new ArgumentException("Unknown texture type");
             }
         }
 
