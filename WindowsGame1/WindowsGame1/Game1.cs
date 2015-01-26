@@ -95,7 +95,6 @@ namespace WindowsGame1
             spriteBatch.Begin();
 
             _game.Draw(GraphicsDevice, spriteBatch, gameTime);
-
             spriteBatch.End();
         }
     }

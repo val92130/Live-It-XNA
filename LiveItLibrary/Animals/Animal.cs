@@ -25,7 +25,7 @@ namespace WindowsGame1
         private  Rectangle _relativeSize;
         private  int _speed;
         private  EAnimalTexture _texture;
-        private List<Box> BoxList = new List<Box>();
+        protected List<Box> BoxList = new List<Box>();
         private  Point _targetLocation;
         private SpriteBatch _spriteBatch;
         private GraphicsDevice _graphics;
