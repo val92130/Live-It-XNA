@@ -30,6 +30,7 @@ namespace WindowsGame1
         Video _introVideo;
         VideoPlayer _videoPlayer;
         Texture2D _videoTexture;
+        Player _player;
         public MainGame(int boxCountPerLine, int boxSizeInMeter, ContentManager Content, SpriteBatch SpriteBatch, GraphicsDevice Graphics)
         {
             _graphics = Graphics;
@@ -41,6 +42,7 @@ namespace WindowsGame1
             _buttonsTextures = new List<Button>();
             _buttonsActions = new List<Button>();
             CreateButtons();
+            _player = new Player( this, new Point( 50, 50 ) );
 
             this._boxCountPerLine = boxCountPerLine;
             this._boxes = new Box[boxCountPerLine * boxCountPerLine];
@@ -72,6 +74,7 @@ namespace WindowsGame1
             this.CreateTextureButton( "Water", EBoxGround.Water );
             this.CreateTextureButton( "Desert", EBoxGround.Desert );
             this.CreateActionButton("Change", EBoxGround.Metal, EButtonAction.ChangeTexture);
+            this.CreateActionButton( "Free mode", EBoxGround.Metal, EButtonAction.FreeMode );
             this.CreateActionButton("Add Cat", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Cat);
             this.CreateActionButton( "Add Cow", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Cow );
             this.CreateActionButton("Add Dog", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Dog );
