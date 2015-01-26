@@ -24,9 +24,9 @@ namespace WindowsGame1
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferMultiSampling = true;
-            this.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            this.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            this.graphics.IsFullScreen = true;
+            this.graphics.PreferredBackBufferWidth = 800;
+            this.graphics.PreferredBackBufferHeight = 600;
+            this.graphics.IsFullScreen = false;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";            
         }

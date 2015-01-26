@@ -142,7 +142,7 @@ namespace WindowsGame1
                         this._game.Player.EMovingDirection = EMovingDirection.Left;
                         if( this._game.Player.LeftCollide == false )
                         {
-                            this._game.Player.Position = new Point( this._game.Player.Position.X - this._game.Player.Speed, this.this._game.Player.Position.Y );
+                            this._game.Player.Position = new Point( this._game.Player.Position.X - this._game.Player.Speed, this._game.Player.Position.Y );
                         }
 
                     }
@@ -178,6 +178,14 @@ namespace WindowsGame1
                 }
             }
 
+        }
+        private void AdjustViewPortToPlayer()
+        {
+            _viewPort.Width = this._screen.Width * 2;
+            _viewPort.Height = this._screen.Height * 2;
+            this._viewPort.X = this._game.Player.Area.X - (this._viewPort.Width / 2) + (this._game.Player.Area.Width / 2);
+            this._viewPort.Y = this._game.Player.Area.Y - (this._viewPort.Height / 2)
+                              + (this._game.Player.Area.Height / 2);
         }
         private void AdjustViewPort()
         {

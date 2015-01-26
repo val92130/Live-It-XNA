@@ -79,7 +79,6 @@ namespace WindowsGame1
             this.Speed = 0;
             MaxSpeed = 30;
             this.Acceleration = 10;
-            _car = new _Car()
             _collisionTextures = new List<EBoxGround>() { EBoxGround.Wall, EBoxGround.Water };
         }
 
