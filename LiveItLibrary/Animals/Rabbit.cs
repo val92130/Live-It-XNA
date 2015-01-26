@@ -1,11 +1,89 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1.Texturing;
 
-namespace LiveItLibrary.Animals
+namespace WindowsGame1.Animals
 {
-    class Rabbit
+    public class Rabbit : Wild
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Dog"/> class.
+        /// </summary>
+        /// <param name="map">
+        /// The map.
+        /// </param>
+        /// <param name="starPosition">
+        /// The star position.
+        /// </param>
+        public Rabbit(MainGame Game, Point startPosition)
+            : base(Game, startPosition)
+        {
+            this.Texture = EAnimalTexture.Dog;
+            this.Size = new Rectangle(0, 0, 100, 100);
+            this.FavoriteEnvironnment = EBoxGround.Forest;
+            this.Speed = 1000000;
+            this.DefaultSpeed = this.Speed;
+            this.ViewDistance = 400;
+            _spriteSheet = Game.Content.Load<Texture2D>("Animals/Animations/Rabbit-SpriteSheet");
+            _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 30, 30, 32, 230, 3);
+            _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 30, 30, 32, 138, 3);
+            _animationLeft = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 30, 30, 32, 170, 3);
+            _animationRight = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 30, 30, 32, 200, 3);
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the max hunger.
+        /// </summary>
+        public override int MaxHunger
+        {
+            get
+            {
+                return 55;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     The behavior.
+        /// </summary>
+        public override void Behavior()
+        {
+            base.Behavior();
+            if (this.Hunger >= 50)
+            {
+                for (int i = 0; i < this.BoxList.Count; i++)
+                {
+                    if (BoxList[i].Ground == EBoxGround.Grass)
+                    {
+                        this.Speed = 0;
+                        Hunger -= 20;
+                        BoxList[i].Ground = EBoxGround.Dirt;
+                    }
+
+                }
+            }
+            else
+            {
+                this.Speed = DefaultSpeed;
+
+            }
+
+        }
     }
+
+        #endregion
 }
+

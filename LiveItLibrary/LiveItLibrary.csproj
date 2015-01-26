@@ -66,6 +66,7 @@
     <Compile Include="Animals\Dog.cs" />
     <Compile Include="Animals\Eagle.cs" />
     <Compile Include="Animals\Lion.cs" />
+    <Compile Include="Animals\Rabbit.cs" />
     <Compile Include="Box.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Enums\EAnimalTexture.cs" />
