@@ -32,10 +32,10 @@ namespace WindowsGame1.Animals
             this.ViewDistance = 400;
             this.Hunger = 49;
             _spriteSheet = Game.Content.Load<Texture2D>("Animals/Animations/Eagle-SpriteSheet");
-            _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 50, 60, 145, 3);
-            _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 50, 60, 0, 3);
-            _animationLeft = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 62, 50, 65, 50, 3);
-            _animationRight = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 45, 65, 100, 3);
+            _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 120, 3);
+            _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 0, 3);
+            _animationLeft = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 40, 3);
+            _animationRight = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 40, 40, 40, 80, 3);
             this.TargetAnimals = new List<EAnimalTexture> { EAnimalTexture.Rabbit, EAnimalTexture.Cow, EAnimalTexture.Dog };
         }
 

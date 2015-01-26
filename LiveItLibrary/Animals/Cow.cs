@@ -30,7 +30,6 @@ namespace WindowsGame1.Animals
             this.Speed = 2000000;
             this.DefaultSpeed = this.Speed;
             this.ViewDistance = 400;
-            this.Hunger = 49;
             _spriteSheet = Game.Content.Load<Texture2D>("Animals/Animations/Cow-SpriteSheet");
             _animationUp = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 50, 60, 145, 3);
             _animationDown = new SpriteAnimation(Game, _spriteSheet, this.RelativeArea, 60, 50, 60, 0, 3);
@@ -70,7 +69,7 @@ namespace WindowsGame1.Animals
                     if (BoxList[i].Ground == EBoxGround.Grass)
                     {
                         this.Speed = 0;
-                       Hunger -= 1;
+                       Hunger -= 20;
                         BoxList[i].Ground = EBoxGround.Dirt;
                     }
 
