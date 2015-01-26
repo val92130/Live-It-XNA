@@ -54,9 +54,9 @@ namespace WindowsGame1
 
             UpdateGUI(gameTime);
 
-            foreach (Animal a in this.Animals)
+            for( int i = 0; i < this.Animals.Count; i++ )
             {
-                a.Update(gameTime);
+                Animals[i].Update( gameTime );
             }
 
         }
