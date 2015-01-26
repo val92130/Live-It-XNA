@@ -47,6 +47,8 @@ namespace WindowsGame1
 
         private bool _isInHouse;
 
+        private Car _car;
+
         /// <summary>
         ///     The _size.
         /// </summary>
@@ -77,6 +79,7 @@ namespace WindowsGame1
             this.Speed = 0;
             MaxSpeed = 30;
             this.Acceleration = 10;
+            _car = new _Car()
             _collisionTextures = new List<EBoxGround>() { EBoxGround.Wall, EBoxGround.Water };
         }
 
@@ -100,6 +103,18 @@ namespace WindowsGame1
             get { return _isInHouse; }
             set { _isInHouse = value; }
         }
+
+        public Car Car
+        {
+            get
+            {
+                return _car;
+            }
+            set
+            {
+                _car = value;
+            }
+        } 
 
         public int Acceleration
         {

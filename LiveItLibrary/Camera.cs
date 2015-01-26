@@ -119,13 +119,65 @@ namespace WindowsGame1
 
         public void MoveViewPortX(int centimeters)
         {
-            _viewPort.X += centimeters;
-            AdjustViewPort();
+            if( !_game.IsPlayer )
+            {
+                _viewPort.X += centimeters;
+                AdjustViewPort();
+            }
+
         }
         public void MoveViewPortY(int centimeters)
         {
-            _viewPort.Y += centimeters;
-            AdjustViewPort();
+            if( !_game.IsPlayer )
+            {
+                _viewPort.Y += centimeters;
+                AdjustViewPort();
+            }
+            else
+            {
+                if( this._game.IsPlayer && this._game.IsInCar == false )
+                {
+                    if( centimeters <= 0 )
+                    {
+                        this._game.Player.EMovingDirection = EMovingDirection.Left;
+                        if( this._game.Player.LeftCollide == false )
+                        {
+                            this._game.Player.Position = new Point( this._game.Player.Position.X - this._game.Player.Speed, this.this._game.Player.Position.Y );
+                        }
+
+                    }
+                    else
+                    {
+                        this._game.Player.EMovingDirection = EMovingDirection.Right;
+                        if( this._game.Player.RightCollide == false )
+                        {
+                            this._game.Player.Position = new Point( this._game.Player.Position.X + this._game.Player.Speed, this._game.Player.Position.Y );
+                        }
+
+                    }
+                    AdjustViewPortToPlayer();
+                }
+                else if( this._game.IsPlayer && this._game.IsInCar )
+                {
+                    if( centimeters > 0 )
+                    {
+                        this._game.Player.Car.EMovingDirection = EMovingDirection.Right;
+                        this._game.Player.Car.Position = new Point(
+                        this._game.Player.Car.Position.X + this._game.Player.Car.Speed,
+                        this._game.Player.Car.Position.Y );
+                    }
+                    else
+                    {
+                        this._game.Player.Car.EMovingDirection = EMovingDirection.Left;
+                        this._game.Player.Car.Position = new Point(
+                        this._game.Player.Car.Position.X - this._game.Player.Car.Speed,
+                        this._game.Player.Car.Position.Y );
+                    }
+
+                    AdjustViewPortToPlayer();
+                }
+            }
+
         }
         private void AdjustViewPort()
         {

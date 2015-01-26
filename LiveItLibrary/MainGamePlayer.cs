@@ -9,6 +9,7 @@ namespace WindowsGame1
     public partial class MainGame
     {
         bool _isPlayer;
+        bool _isInCar;
 
         public bool IsPlayer
         {
@@ -19,6 +20,17 @@ namespace WindowsGame1
             set
             {
                 _isPlayer = value;
+            }
+        }
+        public bool IsInCar
+        {
+            get
+            {
+                return _isInCar;
+            }
+            set
+            {
+                _isInCar = value;
             }
         }
 
