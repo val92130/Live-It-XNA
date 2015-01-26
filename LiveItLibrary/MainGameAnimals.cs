@@ -35,6 +35,9 @@ namespace WindowsGame1
                 case EAnimalTexture.Dog:
                     a = new Dog(this, StartPosition);
                     break;
+                case EAnimalTexture.Cow:
+                    a = new Cow( this, StartPosition );
+                    break;
                 default:
                     throw new NotSupportedException( "Unknown animal type" );
             }

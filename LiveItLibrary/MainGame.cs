@@ -73,6 +73,7 @@ namespace WindowsGame1
             this.CreateTextureButton( "Desert", EBoxGround.Desert );
             this.CreateActionButton("Change", EBoxGround.Metal, EButtonAction.ChangeTexture);
             this.CreateActionButton("Add Cat", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Cat);
+            this.CreateActionButton( "Add Cow", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Cow );
             this.CreateActionButton("Add Dog", EBoxGround.Metal, EButtonAction.AddAnimal, EAnimalTexture.Dog );
             this.CreateActionButton("Add Tree", EBoxGround.Metal, EButtonAction.AddTree);
             this.CreateActionButton("Add Rock", EBoxGround.Metal, EButtonAction.AddRock);
