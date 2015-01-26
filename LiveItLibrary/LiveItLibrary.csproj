@@ -69,12 +69,13 @@
     <Compile Include="Animals\Rabbit.cs" />
     <Compile Include="Box.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Car.cs" />
     <Compile Include="Enums\EAnimalTexture.cs" />
     <Compile Include="Enums\EBoxGround.cs" />
     <Compile Include="Enums\EButtonAction.cs" />
+    <Compile Include="Enums\ECarTexture.cs" />
     <Compile Include="Enums\EmapElements.cs" />
     <Compile Include="Enums\EMovingDirection.cs" />
-    <Compile Include="Enums\EPlayerTexture.cs" />
     <Compile Include="GameVariables.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="KeyControl.cs" />
@@ -83,14 +84,14 @@
     <Compile Include="MainGameDraw.cs" />
     <Compile Include="MainGameGui.cs" />
     <Compile Include="MainGameMapElements.cs" />
-    <Compile Include="MainGamePlayer.cs" />
     <Compile Include="MapElements\MapElement.cs" />
     <Compile Include="MapElements\Rock.cs" />
     <Compile Include="MapElements\Tree.cs" />
-    <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundEnvironment.cs" />
-    <Compile Include="Texturing\GameTexture.cs" />
+    <Compile Include="Texturing\GameTexture.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Texturing\SpriteAnimation.cs" />
     <Compile Include="Animals\Wild.cs" />
   </ItemGroup>
